@@ -14,7 +14,6 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { DOWNLOADS, SITE, VERSION } from "@/lib/site"
 import { cn } from "@/lib/utils"
-import { useDetectedPlatform } from "./detect-platform"
 import { ContentSection, SectionEyebrow, SectionHeading } from "./content-section"
 
 interface BuildRow {
@@ -101,28 +100,6 @@ const platforms: PlatformBlock[] = [
 ]
 
 export function Downloads() {
-  const detected = useDetectedPlatform()
-
-  const recommended = (() => {
-    if (detected === "linux")
-      return {
-        label: "Download for Linux (AppImage)",
-        url: DOWNLOADS.linuxAppImage.url,
-        sub: "x86_64",
-      }
-    if (detected === "windows")
-      return {
-        label: "Download for Windows",
-        url: DOWNLOADS.windows.url,
-        sub: "x86_64 · NSIS installer",
-      }
-    return {
-      label: "Download for macOS",
-      url: DOWNLOADS.macSilicon.url,
-      sub: "Apple Silicon - Intel build below",
-    }
-  })()
-
   return (
     <ContentSection
       id="download"
@@ -143,24 +120,62 @@ export function Downloads() {
             checksums published with every tag.
           </p>
 
-          <div className="mt-8 rounded-2xl border border-border/60 bg-background/60 p-5 backdrop-blur-sm">
-            <div className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
-              Recommended
+          <div className="mt-8 space-y-4">
+            {/* macOS Box */}
+            <div className="rounded-2xl border border-border/60 bg-background/60 p-5 backdrop-blur-sm">
+              <div className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+                macOS
+              </div>
+              <div className="mt-2 text-sm text-foreground/85">
+                Apple Silicon - Intel build below
+              </div>
+              <Button asChild size="lg" className="mt-4 w-full rounded-full">
+                <Link href={DOWNLOADS.macSilicon.url} target="_blank" rel="noreferrer">
+                  <HugeiconsIcon icon={Download04Icon} strokeWidth={2} />
+                  Download for macOS
+                </Link>
+              </Button>
             </div>
-            <div className="mt-2 text-sm text-foreground/85">
-              {recommended.sub}
+
+            {/* Windows Box */}
+            <div className="rounded-2xl border border-border/60 bg-background/60 p-5 backdrop-blur-sm">
+              <div className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+                Windows
+              </div>
+              <div className="mt-2 text-sm text-foreground/85">
+                x86_64 · NSIS installer
+              </div>
+              <Button asChild size="lg" className="mt-4 w-full rounded-full">
+                <Link href={DOWNLOADS.windows.url} target="_blank" rel="noreferrer">
+                  <HugeiconsIcon icon={Download04Icon} strokeWidth={2} />
+                  Download for Windows
+                </Link>
+              </Button>
             </div>
-            <Button asChild size="lg" className="mt-4 w-full rounded-full">
-              <Link href={recommended.url} target="_blank" rel="noreferrer">
-                <HugeiconsIcon icon={Download04Icon} strokeWidth={2} />
-                {recommended.label}
-              </Link>
-            </Button>
+
+            {/* Linux Box */}
+            <div className="rounded-2xl border border-border/60 bg-background/60 p-5 backdrop-blur-sm">
+              <div className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+                Linux
+              </div>
+              <div className="mt-2 text-sm text-foreground/85">
+                AppImage · x86_64
+              </div>
+              <Button asChild size="lg" className="mt-4 w-full rounded-full">
+                <Link href={DOWNLOADS.linuxAppImage.url} target="_blank" rel="noreferrer">
+                  <HugeiconsIcon icon={Download04Icon} strokeWidth={2} />
+                  Download for Linux
+                </Link>
+              </Button>
+            </div>
+          </div>
+
+          <div className="mt-6">
             <Link
               href={SITE.githubReleases}
               target="_blank"
               rel="noreferrer"
-              className="mt-4 inline-flex items-center gap-1 font-mono text-[11px] tracking-[0.12em] text-muted-foreground uppercase transition-colors hover:text-foreground"
+              className="inline-flex items-center gap-1 font-mono text-[11px] tracking-[0.12em] text-muted-foreground uppercase transition-colors hover:text-foreground"
             >
               All releases & checksums
               <HugeiconsIcon

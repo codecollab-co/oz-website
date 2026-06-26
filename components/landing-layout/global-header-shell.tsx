@@ -16,7 +16,7 @@ const navLinks = [
   { href: "/#features", label: "Features" },
   { href: "/about", label: "About" },
   { href: "/changelog", label: "Changelog" },
-  { href: "/#faq", label: "ProductFAQ" },
+  { href: "/#faq", label: "FAQ" },
   { href: "/docs", label: "Docs" },
 ]
 
@@ -120,7 +120,7 @@ export function GlobalHeaderShell({ stars, rawStars }: HeaderShellProps) {
           <Button asChild size="sm" className="rounded-full">
             <Link href="#download">
               <HugeiconsIcon icon={GithubIcon} strokeWidth={2} />
-              ProductDownload
+              Downloads
             </Link>
           </Button>
         </div>
