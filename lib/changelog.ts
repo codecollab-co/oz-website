@@ -9,10 +9,10 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
-    version: "0.8.0",
+    version: "0.2.2",
     date: "2026-06-13",
     highlight:
-      "Command palette, GPU block-mode terminal, spaces, broad file-type support, and a UI/UX pass.",
+      "Command palette, block-mode terminal, spaces, document viewers, and agent notifications.",
     groups: [
       {
         kind: "Added",
@@ -29,6 +29,9 @@ export const CHANGELOG: ChangelogEntry[] = [
           "Drop file paths into the active pane with bracketed-paste and DPI-correct hit detection.",
           "Confirm before closing a tab with a running process.",
           "Official Nix/NixOS support with an auto-update workflow.",
+          "Agent notifications and management - one bell, one router for the built-in agent and every terminal coding agent.",
+          "Live filesystem watcher for the explorer tree and open editors.",
+          "/claude-code slash command to orchestrate agents via Oz AI.",
         ],
       },
       {
@@ -49,27 +52,6 @@ export const CHANGELOG: ChangelogEntry[] = [
           "macOS: settings window no longer hides behind the main window; press-and-hold character popup disabled.",
           "Terminal: block IME composition keydown events from reaching the PTY.",
           "Linux: strip bundled Wayland libs from the AppImage to fix the EGL crash on newer Mesa.",
-        ],
-      },
-    ],
-  },
-  {
-    version: "0.7.3",
-    date: "2026-05-25",
-    highlight:
-      "Agent notifications + management, live fs watcher, /claude-code command, Windows polish.",
-    groups: [
-      {
-        kind: "Added",
-        items: [
-          "Agent notifications and management - one bell, one router for the built-in agent and every terminal coding agent.",
-          "Live filesystem watcher for the explorer tree and open editors.",
-          "/claude-code slash command to orchestrate agents via Oz AI.",
-        ],
-      },
-      {
-        kind: "Fixed",
-        items: [
           "Editor: preserve original file permissions on atomic-write rename.",
           "PTY: authorize the CLI launch directory in the workspace registry on startup.",
           "Settings window is resizable, with a larger default size.",
@@ -80,52 +62,19 @@ export const CHANGELOG: ChangelogEntry[] = [
     ],
   },
   {
-    version: "0.7.1",
+    version: "0.2.1",
     date: "2026-05-21",
     highlight:
-      "Themes and customization, MLX + Ollama, Windows ConPTY lifecycle fixes.",
+      "Themes and customization, MLX + Ollama local LLMs, source control panel + git graph, and security hardening.",
     groups: [
       {
         kind: "Added",
         items: [
           "Custom themes and presets - build in-app, save, switch between bundled and your own. Covers terminal palette and surrounding UI together.",
-          "Background images with adjustable opacity and blur (new defaults: 50% opacity, 0 blur).",
-          "Editor-based custom theme editor - edit tokens inline rather than hand-writing config.",
+          "Background images with adjustable opacity and blur.",
+          "Editor-based custom theme editor - edit tokens inline rather than hand config.",
           "Full ANSI terminal palette in the theme model.",
           "MLX and Ollama as local AI providers, with autocomplete via local models.",
-        ],
-      },
-      {
-        kind: "Changed",
-        items: [
-          "Reasoning / thinking blocks stripped from history before the model call (Cerebras rejected them, others paid tokens).",
-          "Composer keeps focus and accepts typing while the agent is streaming - queue follow-ups instead of waiting.",
-          "Models settings tab redesigned, model picker scroll fixed.",
-          "AI mini-window: todo panel sizes to content, caps at 35% for long lists.",
-        ],
-      },
-      {
-        kind: "Fixed",
-        items: [
-          "Windows ConPTY lifecycle race - CreatePseudoConsole and ClosePseudoConsole now share one lock. Fixes the WSL-to-Local blank-terminal case.",
-          "Console window no longer flashes when Oz spawns subprocesses (shell init, git).",
-          "New terminals no longer try to launch into the install directory.",
-          "Shortcut changes made in Settings propagate to the main window without a restart.",
-          "Agent and snippet editor dialogs scroll their body so Save/Cancel cannot get pushed off screen.",
-          "Selection rendering across themes; Linux clipboard handling.",
-        ],
-      },
-    ],
-  },
-  {
-    version: "0.7.0",
-    date: "2026-05-20",
-    highlight:
-      "Source control panel + git graph, security hardening, broad multi-platform fixes.",
-    groups: [
-      {
-        kind: "Added",
-        items: [
           "Source control panel with hunk staging, commit, and a real commit graph.",
           "Open in Oz shell integration on Windows.",
           "Mistral AI provider.",
@@ -133,17 +82,30 @@ export const CHANGELOG: ChangelogEntry[] = [
           "Markdown preview tab via explorer right-click.",
           "Configurable context limit for OpenAI-compatible providers.",
           "Configurable terminal font family.",
+          "Workspace file picker in AI chat - type @ to insert a file reference.",
         ],
       },
       {
         kind: "Changed",
         items: [
+          "Reasoning / thinking blocks stripped from history before the model call (Cerebras/others).",
+          "Composer keeps focus and accepts typing while the agent is streaming.",
+          "Models settings tab redesigned, model picker scroll fixed.",
+          "AI mini-window: todo panel sizes to content, caps at 35% for long lists.",
           "Security pass: AI tool deny-list hardening, SSRF guard, terminal OSC trust boundary, preview iframe sandbox, WSL distro validation.",
+          "RendererPool capacity bumped from K=4 to K=5 for smoother multi-tab terminals.",
+          "Fish shell support: more reliable startup and prompt rendering.",
         ],
       },
       {
         kind: "Fixed",
         items: [
+          "Windows ConPTY lifecycle race - CreatePseudoConsole and ClosePseudoConsole now share one lock.",
+          "Console window no longer flashes when Oz spawns subprocesses (shell init, git).",
+          "New terminals no longer try to launch into the install directory.",
+          "Shortcut changes made in Settings propagate to the main window without a restart.",
+          "Agent and snippet editor dialogs scroll their body so Save/Cancel cannot get pushed off screen.",
+          "Selection rendering across themes; Linux clipboard handling.",
           "WSL: git and shells honor the workspace env.",
           "Explorer: file tree stays static across InlineInput open/cancel cycles.",
           "AI mini-window: responsive, scrollable todo list.",
@@ -152,32 +114,8 @@ export const CHANGELOG: ChangelogEntry[] = [
           "Search: terminal refocuses after dismissing find.",
           "Editor: files auto-reload when the AI modifies them.",
           "Editor undo/redo wired and surfaced in the shortcuts dialog.",
-          "Security: shell command guard now blocks CR/LF and C0 controls (prevented smuggling a second statement past approval). Reported by Peter D Mora IV.",
-          "Security: O_EXCL random tempfile for atomic writes (closed a symlink-staging path that could redirect approved writes). Reported by chocolatecake777.",
-        ],
-      },
-    ],
-  },
-  {
-    version: "0.6.6",
-    highlight: "Terminal renderer pool tuning and stability fixes.",
-    groups: [
-      {
-        kind: "Added",
-        items: [
-          "Workspace file picker in AI chat - type @ to insert a file reference.",
-        ],
-      },
-      {
-        kind: "Changed",
-        items: [
-          "RendererPool capacity bumped from K=4 to K=5 for smoother multi-tab terminals.",
-          "Fish shell support: more reliable startup and prompt rendering.",
-        ],
-      },
-      {
-        kind: "Fixed",
-        items: [
+          "Security: shell command guard now blocks CR/LF and C0 controls.",
+          "Security: O_EXCL random tempfile for atomic writes.",
           "TUI apps no longer freeze when a tab is hibernated and restored.",
           "Tabs with unsaved edits are preserved when the underlying file is deleted on disk.",
         ],
@@ -185,263 +123,116 @@ export const CHANGELOG: ChangelogEntry[] = [
     ],
   },
   {
-    version: "0.6.5",
-    highlight: "Terminal performance pass (xterm.js WebGL + RendererPool).",
-    groups: [
-      {
-        kind: "Changed",
-        items: [
-          "Optimized the WebGL renderer pool - lower memory and steadier frame times across many tabs.",
-        ],
-      },
-    ],
-  },
-  {
-    version: "0.6.4",
+    version: "0.2.0",
+    date: "2026-04-20",
     highlight:
-      "Security release - removes the OSC 8888 escape sequence handler (CVE pending).",
-    groups: [
-      {
-        kind: "Fixed",
-        items: [
-          "Critical: a remote SSH host (or any process writing to the PTY) could silently open arbitrary local files in the editor. The OSC 8888 handler has been removed entirely. Affected: >= 0.6.0, < 0.6.4. Reported responsibly by @eulex.",
-          "Settings model dropdowns are now scrollable on small windows.",
-          "Inactive terminal tabs no longer bleed across the split divider.",
-          "Explorer tree names and inline inputs clip cleanly inside the sidebar.",
-        ],
-      },
-      {
-        kind: "Added",
-        items: ["WSL workspaces are detected and supported on Windows."],
-      },
-    ],
-  },
-  {
-    version: "0.6.3",
-    highlight: "Editor languages, terminal preferences, and AI model picker.",
-    groups: [
-      {
-        kind: "Added",
-        items: [
-          "Editor language support: Go, C, C++, Java, C#.",
-          "Terminal: WebGL toggle and persistent font-size preferences.",
-          "Explorer: show-hidden-folders toggle.",
-          "AI: Gemini 2.5 Flash, Gemma 3 27B, and searchable model picker.",
-          "Styled confirm dialog for closing tabs with unsaved changes.",
-        ],
-      },
-      {
-        kind: "Fixed",
-        items: [
-          "Windows: main window title now set correctly.",
-          "Windows PTY: Tauri worker no longer blocks on close.",
-          "Terminal: UTF-8 locale forced for PowerShell sessions.",
-          "Terminal: respawn cleans up pending-exit and pty-opening state.",
-          "Explorer: rename/create inputs no longer blur when the context menu opens.",
-        ],
-      },
-      {
-        kind: "Changed",
-        items: [
-          "Search focus and keyboard handling refined for explorer and file search.",
-        ],
-      },
-    ],
-  },
-  {
-    version: "0.6.1",
-    highlight: "Split terminals, preview tabs, DeepSeek.",
-    groups: [
-      {
-        kind: "Added",
-        items: [
-          "Split panes in the terminal.",
-          "Transient preview tabs with pinning behavior.",
-          "DeepSeek provider.",
-          "Customizable keyboard shortcuts in Settings.",
-          "Ctrl-Backspace deletes the previous word in the terminal.",
-        ],
-      },
-      {
-        kind: "Fixed",
-        items: [
-          "LM Studio and other keyless providers work in the model picker and chat send.",
-          "Settings window stays above the main app and broadcasts preference changes across windows.",
-          "AI mini-window no longer overshadows the input bar.",
-          "Explorer inline input survives the context menu open path.",
-        ],
-      },
-    ],
-  },
-  {
-    version: "0.6.0",
-    highlight: "Windows builds, contributor docs, oz_open from the shell.",
+      "Cross-platform releases (Windows & Linux), terminal split-panes, lazy-loaded AI modules, and security releases.",
     groups: [
       {
         kind: "Added",
         items: [
           "First Windows release (NSIS installer).",
           "oz_open shell command - open files into a Oz editor tab from any terminal.",
-          "Contributor docs and issue / PR templates.",
-        ],
-      },
-      {
-        kind: "Fixed",
-        items: [
-          "Explorer create / rename input no longer disappears before you can type.",
-          "TabBar padding and alignment.",
-          "Gemini model IDs updated to use the -preview suffix.",
-        ],
-      },
-    ],
-  },
-  {
-    version: "0.5.9",
-    date: "2026",
-    highlight: "Linux adaptions and auto-updater fixes.",
-    groups: [
-      {
-        kind: "Added",
-        items: ["Window management for linux"],
-      },
-      {
-        kind: "Changed",
-        items: ["Secrets (keyring) redesign", "Auto updater stabilization"],
-      },
-    ],
-  },
-  {
-    version: "0.5.8",
-    highlight: "Auto-updater + CI release pipeline.",
-    groups: [
-      {
-        kind: "Added",
-        items: [
+          "Contributor docs and templates.",
+          "Split panes in the terminal.",
+          "Transient preview tabs with pinning behavior.",
+          "DeepSeek provider.",
+          "Customizable keyboard shortcuts in Settings.",
+          "Ctrl-Backspace deletes the previous word in the terminal.",
+          "Editor language support: Go, C, C++, Java, C#.",
+          "Terminal: WebGL toggle and persistent font-size preferences.",
+          "Explorer: show-hidden-folders toggle.",
+          "AI: Gemini 2.5 Flash, Gemma 3 27B, and searchable model picker.",
+          "Styled confirm dialog for closing tabs with unsaved changes.",
+          "WSL workspaces are detected and supported on Windows.",
+          "Window management for linux.",
           "Auto-updater wired into release builds.",
           "GitHub Actions workflow for cross-platform builds and releases.",
         ],
       },
       {
-        kind: "Fixed",
-        items: ["Linux window initialization on first launch."],
-      },
-      {
-        kind: "Changed",
-        items: ["Bumped Node and pnpm in the release pipeline."],
-      },
-    ],
-  },
-  {
-    version: "0.5.7",
-    groups: [
-      {
         kind: "Changed",
         items: [
+          "Optimized the WebGL renderer pool - lower memory and steadier frame times across many tabs.",
+          "Search focus and keyboard handling refined for explorer and file search.",
+          "Secrets (keyring) redesign; auto updater stabilization.",
           "New sessions now open in $HOME by default.",
-          "Stabilized zsh / bash / pwsh init scripts - fewer first-prompt edge cases.",
-        ],
-      },
-    ],
-  },
-  {
-    version: "0.5.6",
-    groups: [
-      {
-        kind: "Changed",
-        items: [
+          "Stabilized zsh / bash / pwsh init scripts.",
           "Editor and AI modules now lazy-load - smaller install, faster cold start.",
+          "ProductDemo assets and updated README screenshots.",
+          "Dependency version sweep.",
+          "Snippets and commands merged into a single palette.",
         ],
       },
-    ],
-  },
-  {
-    version: "0.5.5",
-    groups: [
-      { kind: "Added", items: ["ProductDemo assets and updated README screenshots."] },
-      { kind: "Changed", items: ["Dependency version sweep."] },
-    ],
-  },
-  {
-    version: "0.5.4",
-    groups: [
       {
-        kind: "Changed",
-        items: ["Snippets and commands merged into a single palette."],
-      },
-    ],
-  },
-  {
-    version: "0.5.3",
-    groups: [
-      { kind: "Changed", items: ["UI polish across AI and agent views."] },
-    ],
-  },
-  {
-    version: "0.5.2",
-    groups: [
-      { kind: "Changed", items: ["AI mini-window UI/UX improvements."] },
-    ],
-  },
-  {
-    version: "0.5.1",
-    highlight: "Plans, sub-agents, tasks.",
-    groups: [
-      {
-        kind: "Added",
+        kind: "Fixed",
         items: [
-          "Full agentic workflow: plans, sub-agents, tasks, project init.",
-          "Improved shell tool for the agent.",
+          "Critical security fix: removed the OSC 8888 escape sequence handler to prevent remote SSH host arbitrary file reads.",
+          "Settings model dropdowns are now scrollable on small windows.",
+          "Inactive terminal tabs no longer bleed across the split divider.",
+          "Explorer tree names and inline inputs clip cleanly inside the sidebar.",
+          "Windows: main window title now set correctly.",
+          "Windows PTY: Tauri worker no longer blocks on close.",
+          "Terminal: UTF-8 locale forced for PowerShell sessions.",
+          "Terminal: respawn cleans up pending-exit and pty-opening state.",
+          "Explorer: rename/create inputs no longer blur when the context menu opens.",
+          "LM Studio and other keyless providers work in the model picker and chat send.",
+          "Settings window stays above the main app and broadcasts preference changes across windows.",
+          "AI mini-window no longer overshadows the input bar.",
+          "Explorer inline input survives the context menu open path.",
+          "Explorer create / rename input no longer disappears before you can type.",
+          "TabBar padding and alignment.",
+          "Gemini model IDs updated to use the -preview suffix.",
+          "Linux window initialization on first launch.",
+          "Bumped Node and pnpm in the release pipeline.",
         ],
       },
     ],
   },
   {
-    version: "0.4.7",
-    highlight: "Vim mode in the editor.",
+    version: "0.1.5",
+    highlight:
+      "Vim mode in the editor, explorer keyboard navigation, and full agentic workflows (plans, sub-agents, tasks).",
     groups: [
       {
         kind: "Added",
         items: [
           "Vim mode in the editor (motions, registers, marks).",
           "Keyboard navigation across the file explorer.",
+          "Full agentic workflow: plans, sub-agents, tasks, project init.",
+          "Improved shell tool for the agent.",
+          "Skills and multi-agent support.",
+          "Settings UI improvements.",
         ],
       },
-    ],
-  },
-  {
-    version: "0.4.6",
-    groups: [
-      { kind: "Changed", items: ["Cleanup pass: dependencies, UI, icons."] },
-    ],
-  },
-  {
-    version: "0.4.5",
-    groups: [
       {
         kind: "Changed",
         items: [
+          "UI polish across AI and agent views.",
+          "AI mini-window UI/UX improvements.",
+          "Cleanup pass: dependencies, UI, icons.",
           "Optimized PTY resize, session lifecycle, and AI context handling.",
+          "Agents UI/UX improvements.",
         ],
       },
     ],
   },
   {
-    version: "0.4.4",
-    groups: [{ kind: "Changed", items: ["Agents UI/UX improvements."] }],
-  },
-  {
-    version: "0.4.3",
-    highlight: "Skills and multi-agent.",
+    version: "0.1.4",
+    highlight: "Web preview tab, editor tabs split, local LLM support, AI autocomplete.",
     groups: [
       {
         kind: "Added",
-        items: ["Skills and multi-agent support.", "Settings UI improvements."],
+        items: [
+          "Web preview tab with auto-detection of local dev servers.",
+          "Workspace-wide file search.",
+          "Editor tabs decoupled from terminal tabs.",
+          "AI Edit Diffs - preview and approve agent edits before applying.",
+          "Local LLM support via LM Studio.",
+          "Groq and Cerebras providers.",
+          "AI autocomplete in the editor.",
+        ],
       },
-    ],
-  },
-  {
-    version: "0.4.2",
-    groups: [
       {
         kind: "Changed",
         items: ["AI autocomplete: improved latency and accuracy."],
@@ -449,240 +240,90 @@ export const CHANGELOG: ChangelogEntry[] = [
     ],
   },
   {
-    version: "0.4.1",
-    highlight: "Local LLMs + AI autocomplete.",
+    version: "0.1.3",
+    highlight: "Tauri keyring credentials and initial AI agents.",
     groups: [
       {
         kind: "Added",
         items: [
-          "Local LLM support via LM Studio.",
-          "Groq and Cerebras providers.",
-          "AI autocomplete in the editor.",
-        ],
-      },
-    ],
-  },
-  {
-    version: "0.3.9",
-    highlight: "AI Edit Diffs.",
-    groups: [
-      {
-        kind: "Added",
-        items: [
-          "AI Edit Diffs - preview and approve agent edits before applying.",
-        ],
-      },
-    ],
-  },
-  {
-    version: "0.3.8",
-    groups: [
-      {
-        kind: "Added",
-        items: [
-          "Workspace-wide file search.",
-          "Editor tabs decoupled from terminal tabs.",
-        ],
-      },
-    ],
-  },
-  {
-    version: "0.3.7",
-    highlight: "Web preview tab.",
-    groups: [
-      {
-        kind: "Added",
-        items: ["Web preview tab with auto-detection of local dev servers."],
-      },
-    ],
-  },
-  {
-    version: "0.3.6",
-    groups: [
-      { kind: "Added", items: ["Autostart and window-state persistence."] },
-      { kind: "Changed", items: ["Settings UI improvements."] },
-    ],
-  },
-  {
-    version: "0.3.5",
-    groups: [{ kind: "Added", items: ["Standalone settings window."] }],
-  },
-  {
-    version: "0.3.4",
-    groups: [
-      {
-        kind: "Added",
-        items: [
+          "Tauri keyring - API keys now stored in the OS keychain.",
+          "AI agents (initial implementation).",
+          "Apache-2.0 license.",
           "New AI mini-window.",
           "Text selection handling and session persistence.",
+          "Standalone settings window.",
+          "Autostart and window-state persistence.",
+        ],
+      },
+      {
+        kind: "Changed",
+        items: [
+          "Icon set and theme refresh.",
+          "Internal renaming pass.",
+          "Internal refactor.",
+          "Settings UI improvements.",
         ],
       },
     ],
   },
   {
-    version: "0.3.1",
-    groups: [{ kind: "Changed", items: ["Internal refactor."] }],
-  },
-  {
-    version: "0.3.0",
-    highlight: "AI agents (initial).",
-    groups: [
-      {
-        kind: "Added",
-        items: ["AI agents (initial implementation).", "Apache-2.0 license."],
-      },
-    ],
-  },
-  {
-    version: "0.2.9",
-    highlight: "Keys move to the OS keychain.",
-    groups: [
-      {
-        kind: "Added",
-        items: ["Tauri keyring - API keys now stored in the OS keychain."],
-      },
-      { kind: "Changed", items: ["Internal renaming pass."] },
-    ],
-  },
-  {
-    version: "0.2.8",
-    groups: [{ kind: "Changed", items: ["Icon set and theme refresh."] }],
-  },
-  {
-    version: "0.2.7",
-    groups: [
-      { kind: "Added", items: ["File explorer context menu."] },
-      { kind: "Changed", items: ["General refactor; editor improvements."] },
-    ],
-  },
-  {
-    version: "0.2.4",
-    groups: [{ kind: "Fixed", items: ["Various bug fixes."] }],
-  },
-  {
-    version: "0.2.3",
-    highlight: "File explorer + editor.",
+    version: "0.1.1",
+    highlight: "File explorer and CodeMirror 6 editor.",
     groups: [
       {
         kind: "Added",
         items: [
           "File explorer (first version).",
           "Code editor based on CodeMirror 6.",
+          "File explorer context menu.",
         ],
       },
-    ],
-  },
-  {
-    version: "0.2.1",
-    groups: [
-      { kind: "Added", items: ["Logging."] },
-      {
-        kind: "Fixed",
-        items: ["Shell script handling and session edge cases."],
-      },
-    ],
-  },
-  {
-    version: "0.2.0",
-    groups: [
-      {
-        kind: "Added",
-        items: ["AI side panel.", "Status bar.", "Keyboard shortcuts."],
-      },
-    ],
-  },
-  {
-    version: "0.1.3",
-    groups: [{ kind: "Added", items: ["AI SDK and AI Elements integration."] }],
-  },
-  {
-    version: "0.1.2",
-    groups: [
-      { kind: "Added", items: ["New app logo.", "Configurable window size."] },
-    ],
-  },
-  {
-    version: "0.1.1",
-    groups: [
       {
         kind: "Changed",
-        items: [
-          "Rendering and resize improvements.",
-          "Header and tabs UI polish.",
-        ],
+        items: ["General refactor; editor improvements."],
+      },
+      {
+        kind: "Fixed",
+        items: ["Various bug fixes."],
       },
     ],
   },
   {
     version: "0.1.0",
+    highlight: "First prototype: AI side panel, status bar, and WebGL terminal support.",
     groups: [
+      {
+        kind: "Added",
+        items: [
+          "AI side panel, status bar, and keyboard shortcuts.",
+          "Logging.",
+          "AI SDK and AI Elements integration.",
+          "New app logo.",
+          "Configurable window size.",
+          "Multi-tab support.",
+          "Basic layout UI.",
+          "Custom font and theme.",
+          "Tauri window management.",
+          "xterm.js WebGL renderer, search, and link plugins.",
+          "shadcn/ui component set and supporting deps.",
+          "Child process lifecycle handling.",
+          "Per-session locking.",
+          "Initial Rust PTY backend with xterm.js in React.",
+        ],
+      },
       {
         kind: "Changed",
         items: [
           "New UI shell.",
           "Internal refactor; fixed render/resize race.",
+          "Rendering and resize improvements.",
+          "Header and tabs UI polish.",
+          "Switched icon library from Lucide to HugeIcons.",
         ],
       },
-    ],
-  },
-  {
-    version: "0.0.8",
-    groups: [
-      { kind: "Added", items: ["Multi-tab support.", "Basic layout UI."] },
-    ],
-  },
-  {
-    version: "0.0.7",
-    groups: [
       {
-        kind: "Changed",
-        items: ["Switched icon library from Lucide to HugeIcons."],
-      },
-    ],
-  },
-  {
-    version: "0.0.6",
-    groups: [
-      {
-        kind: "Added",
-        items: ["Custom font and theme.", "Tauri window management."],
-      },
-    ],
-  },
-  {
-    version: "0.0.5",
-    groups: [
-      {
-        kind: "Added",
-        items: ["xterm.js WebGL renderer, search, and link plugins."],
-      },
-    ],
-  },
-  {
-    version: "0.0.4",
-    groups: [
-      {
-        kind: "Added",
-        items: ["shadcn/ui component set and supporting deps."],
-      },
-    ],
-  },
-  {
-    version: "0.0.3",
-    groups: [
-      {
-        kind: "Added",
-        items: ["Child process lifecycle handling.", "Per-session locking."],
-      },
-    ],
-  },
-  {
-    version: "0.0.2",
-    highlight: "First prototype.",
-    groups: [
-      {
-        kind: "Added",
-        items: ["Initial Rust PTY backend with xterm.js in React."],
+        kind: "Fixed",
+        items: ["Shell script handling and session edge cases."],
       },
     ],
   },
