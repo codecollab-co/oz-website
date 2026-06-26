@@ -10,7 +10,7 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     version: "0.2.2",
-    date: "2026-06-13",
+    date: "25.06.2026",
     highlight:
       "Command palette, block-mode terminal, spaces, document viewers, and agent notifications.",
     groups: [
@@ -63,7 +63,6 @@ export const CHANGELOG: ChangelogEntry[] = [
   },
   {
     version: "0.2.1",
-    date: "2026-05-21",
     highlight:
       "Themes and customization, MLX + Ollama local LLMs, source control panel + git graph, and security hardening.",
     groups: [
@@ -124,7 +123,6 @@ export const CHANGELOG: ChangelogEntry[] = [
   },
   {
     version: "0.2.0",
-    date: "2026-04-20",
     highlight:
       "Cross-platform releases (Windows & Linux), terminal split-panes, lazy-loaded AI modules, and security releases.",
     groups: [
