@@ -65,7 +65,8 @@ export async function generateMetadata(props: {
 
   if (!page) notFound()
 
-  const ogUrl = `/og/docs/${params.slug?.join("/") ?? ""}`
+  const slugs = params.slug ?? []
+  const ogUrl = `/og/docs/${slugs.length === 0 ? "index" : slugs.join("/")}.png`
 
   return {
     title: page.data.title,

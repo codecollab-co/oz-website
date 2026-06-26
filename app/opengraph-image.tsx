@@ -1,7 +1,7 @@
 import { SITE, VERSION } from "@/lib/site"
 import { ImageResponse } from "next/og"
 
-export const runtime = "edge"
+export const dynamic = "force-static"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 export const alt = `${SITE.name} - ${SITE.tagline}`
@@ -38,13 +38,14 @@ export default function OG() {
             letterSpacing: -1,
           }}
         >
-          T
+          O
         </div>
-        <div style={{ fontSize: 36, fontWeight: 700, letterSpacing: -1 }}>
+        <div style={{ display: "flex", fontSize: 36, fontWeight: 700, letterSpacing: -1 }}>
           {SITE.name}
         </div>
         <div
           style={{
+            display: "flex",
             marginLeft: 12,
             padding: "6px 14px",
             borderRadius: 999,
@@ -61,6 +62,7 @@ export default function OG() {
       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
         <div
           style={{
+            display: "flex",
             fontSize: 76,
             fontWeight: 800,
             letterSpacing: -2,

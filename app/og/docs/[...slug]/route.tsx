@@ -6,9 +6,15 @@ import fs from "node:fs"
 import path from "node:path"
 
 export async function generateStaticParams() {
-  return source.getPages().map((page) => ({
-    slug: page.slugs,
-  }))
+  return source.getPages().map((page) => {
+    const slug = [...page.slugs]
+    if (slug.length === 0) {
+      return { slug: ["index.png"] }
+    }
+    const lastIdx = slug.length - 1
+    slug[lastIdx] = `${slug[lastIdx]}.png`
+    return { slug }
+  })
 }
 
 // Load logo once during module load / build time
@@ -23,10 +29,20 @@ try {
 
 export async function GET(
   request: Request,
-  props: { params: Promise<{ slug?: string[] }> }
+  props: { params: Promise<{ slug: string[] }> }
 ) {
   const params = await props.params
-  const page = source.getPage(params.slug)
+  let cleanSlug = [...params.slug]
+  if (cleanSlug.length > 0) {
+    const lastIdx = cleanSlug.length - 1
+    if (cleanSlug[lastIdx].endsWith(".png")) {
+      cleanSlug[lastIdx] = cleanSlug[lastIdx].slice(0, -4)
+    }
+  }
+  if (cleanSlug && cleanSlug.length > 0 && cleanSlug[cleanSlug.length - 1] === "index") {
+    cleanSlug = cleanSlug.slice(0, -1)
+  }
+  const page = source.getPage(cleanSlug)
 
   if (!page) {
     return notFound()
@@ -103,7 +119,7 @@ export async function GET(
                 fontWeight: 800,
               }}
             >
-              T
+              O
             </div>
           )}
           <span

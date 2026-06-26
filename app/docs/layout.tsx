@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="relative z-0 min-h-screen bg-background">
       <ScrollGuard />
-      <RootProvider>
+      <RootProvider search={{ options: { type: "static" } }}>
         <DocsLayout
           tree={source.pageTree}
           githubUrl={SITE.github}
