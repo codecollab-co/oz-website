@@ -59,7 +59,7 @@ export default function HomePage() {
       <main className="relative">
         <LandingHero />
         <ProductStats />
-        <ProductDemo />
+        {/* <ProductDemo /> */}
 
         <div id="features" className="relative">
           <FeatureHighlights
