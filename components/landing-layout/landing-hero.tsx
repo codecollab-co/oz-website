@@ -15,29 +15,8 @@ import Link from "next/link"
 import { TypingAnimator } from "@/components/typing-animator"
 import { Button } from "@/components/ui/button"
 import { DOWNLOADS, SITE, VERSION } from "@/lib/site"
-import { useDetectedPlatform } from "./detect-platform"
 
 export function LandingHero() {
-  const platform = useDetectedPlatform()
-
-  const primary =
-    platform === "linux"
-      ? {
-          label: "Download for Linux",
-          href: DOWNLOADS.linuxAppImage.url,
-          icon: ComputerIcon,
-        }
-      : platform === "windows"
-        ? {
-            label: "Download for Windows",
-            href: DOWNLOADS.windows.url,
-            icon: MicrosoftIcon,
-          }
-        : {
-            label: "Download for macOS",
-            href: DOWNLOADS.macSilicon.url,
-            icon: AppleIcon,
-          }
 
   return (
     <section className="relative isolate overflow-hidden pt-36 pb-24 sm:pt-44 sm:pb-32">
@@ -106,9 +85,9 @@ export function LandingHero() {
           className="mt-9 flex flex-col items-center gap-3 sm:flex-row"
         >
           <Button asChild size="lg" className="rounded-full px-5">
-            <Link href={primary.href} target="_blank" rel="noreferrer">
-              <HugeiconsIcon icon={primary.icon} strokeWidth={2} />
-              {primary.label}
+            <Link href={DOWNLOADS.macSilicon.url} target="_blank" rel="noreferrer">
+              <HugeiconsIcon icon={AppleIcon} strokeWidth={2} />
+              Download for macOS
             </Link>
           </Button>
           <Button
@@ -117,9 +96,9 @@ export function LandingHero() {
             variant="outline"
             className="rounded-full px-5"
           >
-            <Link href="#download">
-              <HugeiconsIcon icon={Download04Icon} strokeWidth={2} />
-              Downloads
+            <Link href={DOWNLOADS.windows.url} target="_blank" rel="noreferrer">
+              <HugeiconsIcon icon={MicrosoftIcon} strokeWidth={2} />
+              Download for Windows
             </Link>
           </Button>
           <Button
@@ -128,9 +107,9 @@ export function LandingHero() {
             variant="outline"
             className="rounded-full px-5"
           >
-            <Link href={SITE.github} target="_blank" rel="noreferrer">
-              <HugeiconsIcon icon={GithubIcon} strokeWidth={2} />
-              View on GitHub
+            <Link href={DOWNLOADS.linuxAppImage.url} target="_blank" rel="noreferrer">
+              <HugeiconsIcon icon={ComputerIcon} strokeWidth={2} />
+              Download for Linux
             </Link>
           </Button>
         </motion.div>
