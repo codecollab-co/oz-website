@@ -1,0 +1,47 @@
+name: Feature request
+description: Suggest a new website feature, improvement, or documentation content request
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea! A short conversation here saves everyone time before writing any code or content.
+
+        This issue tracker is for the **Oz website and documentation**. For app features, please open an issue in the main [Oz repo](https://github.com/codecollab-co/oz).
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem or gaps does this address?
+      description: |
+        The **why**, not the **what**. What was missing, unclear, or could be improved on the website/docs?
+      placeholder: "The documentation doesn't explain how to configure custom AI providers step-by-step."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution / content changes
+      description: Describe the changes, layout, text, or documentation section you are suggesting.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: contribution
+    attributes:
+      label: Are you willing to contribute the implementation?
+      options:
+        - "Yes, I can open a Pull Request"
+        - "Yes, with guidance"
+        - "No, just suggesting"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and didn't find a duplicate
+          required: true
