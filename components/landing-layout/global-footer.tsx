@@ -72,8 +72,9 @@ export function GlobalFooter() {
                 className="size-3.5"
                 strokeWidth={2}
               />
-              crynta/oz-ai
+              codecollab-co/oz
             </Link>
+            {/*
             <Link
               href={SITE.youtube}
               target="_blank"
@@ -87,6 +88,7 @@ export function GlobalFooter() {
               />
              crynta
             </Link>
+            */}
           </div>
         </div>
       </div>
