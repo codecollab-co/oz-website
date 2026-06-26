@@ -100,24 +100,24 @@ const platforms: PlatformBlock[] = [
   },
 ]
 
-export function ProductDownload() {
+export function Downloads() {
   const detected = useDetectedPlatform()
 
   const recommended = (() => {
     if (detected === "linux")
       return {
-        label: "ProductDownload for Linux (AppImage)",
+        label: "Download for Linux (AppImage)",
         url: DOWNLOADS.linuxAppImage.url,
         sub: "x86_64",
       }
     if (detected === "windows")
       return {
-        label: "ProductDownload for Windows",
+        label: "Download for Windows",
         url: DOWNLOADS.windows.url,
         sub: "x86_64 · NSIS installer",
       }
     return {
-      label: "ProductDownload for macOS",
+      label: "Download for macOS",
       url: DOWNLOADS.macSilicon.url,
       sub: "Apple Silicon - Intel build below",
     }
@@ -134,7 +134,7 @@ export function ProductDownload() {
       />
       <div className="relative grid gap-8 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <SectionEyebrow>06 - ProductDownload · v{VERSION}</SectionEyebrow>
+          <SectionEyebrow>06 - Downloads · v{VERSION}</SectionEyebrow>
           <SectionHeading className="mt-3">
             Pick a build. Run it.
           </SectionHeading>
@@ -256,7 +256,7 @@ export function ProductDownload() {
                               icon={Download04Icon}
                               strokeWidth={2}
                             />
-                            ProductDownload
+                            Download
                           </Link>
                         </Button>
                       ) : (

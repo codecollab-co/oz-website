@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: "Do I need an account or sign-up?",
-    a: "No. ProductDownload, install, run. Bring your own keys for cloud providers (OpenAI, Anthropic, Google, etc.) or skip them entirely and run local models via LM Studio.",
+    a: "No. Download, install, run. Bring your own keys for cloud providers (OpenAI, Anthropic, Google, etc.) or skip them entirely and run local models via LM Studio.",
   },
   {
     q: "Which AI models are supported?",
@@ -37,11 +37,11 @@ const faqs = [
   },
 ]
 
-export function ProductFAQ() {
+export function FAQ() {
   return (
     <ContentSection id="faq">
       <div className="mx-auto max-w-3xl text-center">
-        <SectionEyebrow>ProductFAQ</SectionEyebrow>
+        <SectionEyebrow>FAQ</SectionEyebrow>
         <SectionHeading>Questions, answered.</SectionHeading>
         <SectionLead className="mx-auto">
           Still curious? Open a discussion on GitHub - we&apos;re around.

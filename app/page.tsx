@@ -1,6 +1,6 @@
 import { ProductDemo } from "@/components/landing-layout/product-demo"
-import { ProductDownload } from "@/components/landing-layout/product-download"
-import { ProductFAQ } from "@/components/landing-layout/product-faq"
+import { Downloads } from "@/components/landing-layout/downloads"
+import { FAQ } from "@/components/landing-layout/faq"
 import { GridFeatures } from "@/components/landing-layout/grid-features"
 import { FeatureHighlights } from "@/components/landing-layout/feature-highlights"
 import { GlobalFooter } from "@/components/landing-layout/global-footer"
@@ -261,8 +261,8 @@ export default function HomePage() {
         </div>
 
         <GridFeatures />
-        <ProductDownload />
-        <ProductFAQ />
+        <Downloads />
+        <FAQ />
       </main>
       <GlobalFooter />
       <script

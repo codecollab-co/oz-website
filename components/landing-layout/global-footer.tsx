@@ -6,7 +6,7 @@ import Link from "next/link"
 import { SITE, VERSION } from "@/lib/site"
 
 const productLinks = [
-  { label: "ProductDownload", href: "#download" },
+  { label: "Downloads", href: "#download" },
   { label: "Features", href: "#features" },
   { label: "Changelog", href: "/changelog" },
   { label: "About", href: "/about" },
