@@ -1,0 +1,11 @@
+{
+  "title": "Reference",
+  "icon": "Notebook",
+  "pages": [
+    "shortcuts",
+    "settings",
+    "shell-integration",
+    "workspaces",
+    "data"
+  ]
+}

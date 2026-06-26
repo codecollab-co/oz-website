@@ -1,0 +1,63 @@
+---
+title: Security and approvals
+description: Approval-gated tools, the secret deny-list, AI edit diffs, and the workspace authorization registry.
+icon: Shield
+---
+
+Oz assumes the AI can be wrong. Every action that touches your disk, your shell, or your secrets has an explicit boundary in front of it.
+
+## Approval-gated tools
+
+AI tools split into two tiers.
+
+**Auto-execute** (read-only):
+
+- `read_file`
+- `list_directory`
+- `fs_search` (fuzzy file finder)
+- `fs_grep` (content search)
+
+**Approval-gated** (`needsApproval: true`):
+
+- `write_file`
+- `create_directory`
+- `rename`
+- `delete`
+- `run_command` - one-shot subshell
+- `shell_session_run` - persistent agent shell
+- `shell_bg_spawn` - long-running background process
+
+When the agent calls an approval-gated tool, the AI SDK pauses the step and Oz renders an in-UI confirmation card showing the exact arguments. You accept or reject. Auto-resume on accept is handled by `lastAssistantMessageIsCompleteWithApprovalResponses`.
+
+## AI edit diffs
+
+`write_file` does not write directly. Proposed edits open in an `ai-diff` tab - a side-by-side view of the current file and the proposed result. You accept or reject **per hunk**, then the write tool runs against the accepted result.
+
+This means an AI proposing five edits where four are good and one is wrong gets four accepted writes, not an all-or-nothing.
+
+## Secret deny-list
+
+`lib/security.ts` maintains a deny-list of paths that AI tools cannot touch on either read or write:
+
+- `.env`, `.env.*`
+- `.ssh/`
+- credential files (`credentials`, `.netrc`, `.aws/credentials`, etc.)
+- keychain dirs
+
+Enforcement runs in Rust, after path canonicalization, on **every** fs tool call. The deny-list is not a frontend convenience - it cannot be bypassed by an instruction-override in the prompt or by a path traversal trick.
+
+Adding to the deny-list is a code change, by design.
+
+## Workspace authorization
+
+`workspace::workspace_authorize` is the registry that grants AI tool calls and git commands access to a workspace directory. New workspaces prompt once. An agent cannot reach into a sibling directory you have not explicitly opened.
+
+The same registry gates PTY spawns - opening a terminal in a directory implies authorization to read it.
+
+## SSRF guard
+
+The Rust HTTP proxy (`ai_http_request`, `ai_http_stream`) blocks loopback, link-local, and private-range addresses, except for explicitly local-provider scoped traffic (LM Studio, MLX, Ollama base URLs that you configured). A poisoned prompt cannot trick the agent into hitting an internal service through the provider call.
+
+## Keys never on disk
+
+API keys live in the OS keychain (service `oz-ai`). The settings file, `localStorage`, and env vars never see a plaintext key. See [Providers and keys](/docs/ai/providers#key-storage).

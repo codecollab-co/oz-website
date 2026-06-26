@@ -1,0 +1,46 @@
+---
+title: Workspace environments
+description: Local and WSL workspaces, the authorization registry, and how cwd flows between tabs.
+icon: CodeFolder
+---
+
+A **workspace environment** is the execution context for new tabs - Local on macOS / Linux / Windows, or any installed WSL distro on Windows.
+
+## Local
+
+The default on every platform. Tabs spawn against the host shell (`$SHELL` on Unix, `pwsh.exe` / `powershell.exe` / `cmd.exe` on Windows, in that priority).
+
+## WSL on Windows
+
+WSL is a first-class workspace environment, not a wrapped subprocess. The Rust backend talks to `wsl.exe` to enumerate distros (`wsl_list_distros`), detect the default (`wsl_default_distro`), and resolve the user's home inside the distro (`wsl_home`).
+
+Pick a WSL distro from the workspace switcher in the header. New tabs in that workspace spawn inside the chosen distro, with the distro's shell and the distro's filesystem view.
+
+You can mix in one window: a Local terminal tab in pwsh next to a WSL-Ubuntu tab in bash, with the AI agent reading both contexts.
+
+The last selected WSL distro persists in `lastWslDistro` in settings.
+
+## The authorization registry
+
+`workspace::workspace_authorize` is the gate every privileged Rust command runs through:
+
+- PTY spawn
+- Filesystem reads / writes
+- Git commands
+- AI tool calls
+
+When you open a new workspace directory, Oz prompts once to authorize it. The grant persists across sessions in the registry. An AI agent cannot read or write a sibling directory you have not explicitly opened.
+
+`workspace_current_dir` returns the currently active workspace cwd to any module that needs it.
+
+## How cwd flows
+
+1. The user types `cd somewhere` in a terminal.
+2. Shell integration emits `OSC 7 file://<host>/somewhere` on the next prompt.
+3. The PTY reader on the Rust side forwards it.
+4. The frontend's OSC handler updates `tab.cwd` for that tab.
+5. The status bar breadcrumb re-renders.
+6. The explorer root updates if this is the active tab.
+7. New tabs created from here inherit `cwd` via `useWorkspaceCwd`.
+
+Canonical path form on the frontend is forward-slash. Windows drive letters are normalized at the boundary (`/C:/...` -> `C:/...`).

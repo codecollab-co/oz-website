@@ -1,0 +1,29 @@
+{
+  "pages": [
+    "---Overview---",
+    "index",
+    "getting-started/index",
+    "getting-started/workspace",
+    "---Features---",
+    "features/terminal",
+    "features/editor",
+    "features/explorer",
+    "features/source-control",
+    "features/preview",
+    "features/themes",
+    "features/notifications",
+    "---AI---",
+    "ai/providers",
+    "ai/composer",
+    "ai/terminal-agents",
+    "ai/plans-and-subagents",
+    "ai/sessions-and-memory",
+    "ai/security",
+    "---Reference---",
+    "reference/shortcuts",
+    "reference/settings",
+    "reference/shell-integration",
+    "reference/workspaces",
+    "reference/data"
+  ]
+}

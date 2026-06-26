@@ -1,0 +1,58 @@
+---
+title: Workspace layout
+description: Tour the Oz window - tabs, sidebar, status bar, and the AI composer.
+icon: Layout
+---
+
+The Oz window is a single React app with one window per workspace. Everything is built around tabs and a side panel.
+
+## Tabs
+
+Every panel in the main area is a tab. Tab kinds:
+
+- **terminal** - a PTY-backed shell session
+- **editor** - a CodeMirror file buffer
+- **preview** - a web preview of a dev server or URL
+- **markdown** - rendered Markdown
+- **ai-diff** - the side-by-side review for AI-proposed edits
+- **git-diff** / **git-history** / **git-commit-file** - source control views
+
+Tabs are **never unmounted** when you switch. They are hidden with CSS so PTYs and dev servers keep streaming in the background. Inactive tabs cost no extra render work but their state survives the entire session.
+
+New tabs inherit the working directory of the active tab.
+
+### Split panes
+
+Any tab can split into a pane. `Cmd+D` splits right, `Cmd+Shift+D` splits down. `Cmd+[` and `Cmd+]` move focus between panes. `Cmd+W` closes the focused pane (or the tab if it is the last pane).
+
+## Sidebar
+
+The sidebar runs an activity bar with collapsible panels:
+
+- **File explorer** - the workspace tree, with Catppuccin icons and fuzzy search.
+- **Source control** - git status, hunk-level stage, and commit.
+- **Git history** - the commit graph and per-commit diffs.
+
+Toggle the sidebar with `Cmd+B`. Focus the explorer with `Cmd+Shift+E`.
+
+## Status bar
+
+The bottom bar shows:
+
+- A cwd breadcrumb derived from the active terminal's OSC 7 stream.
+- An AI tools indicator while the agent is running.
+- A pill prompting to open a preview when a localhost URL is detected in the terminal.
+
+## AI composer
+
+The composer is the docked input bar for the AI side-panel. Toggle it with `Cmd+I`. Type, attach files with `@path`, snippets with `#handle`, slash commands with `/`, or hit the mic for voice input.
+
+See [Composer and agent](/docs/ai/composer) for the full reference.
+
+## Header
+
+The header carries the tab bar, workspace switcher (Local plus any WSL distro on Windows), and the notification bell. The bell lists every Oz-side and terminal-side agent. See [Notifications](/docs/features/notifications).
+
+## Settings window
+
+`Cmd+,` opens Settings in a separate window. Six tabs: General, Models, Themes, Shortcuts, Agents, About. Every preference Oz persists is here. See [Settings reference](/docs/reference/settings).

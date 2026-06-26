@@ -1,0 +1,58 @@
+---
+title: Editor
+description: CodeMirror 6 with Vim mode, inline AI autocomplete, and hunk-by-hunk AI edit diffs.
+icon: Code
+---
+
+The editor is a full CodeMirror 6 stack mounted as one instance per tab. Like terminals, editor tabs are not unmounted on switch - cursor positions, undo history, and selections persist across the whole session.
+
+<img src="/editor.webp" alt="Oz code editor with AI autocomplete and Vim mode" width="1200" />
+
+## Languages
+
+CodeMirror language modes for TypeScript / JavaScript, Rust, Python, Go, C / C++, Java, HTML / CSS, JSON, Markdown, and the long tail of common formats. Mode is detected from the file extension.
+
+## Vim mode
+
+First-class. The `vim` CodeMirror extension - motions, registers, marks, visual modes, and `:` command line. Toggle in Settings -> General.
+
+## Inline AI autocomplete
+
+Type. After a short pause Oz queries your configured **autocomplete provider** and renders the suggestion inline. Accept with `Tab`, reject by typing anything else.
+
+Provider and model are independent of your main chat model. Configure in Settings -> Models. The autocomplete provider can be any cloud provider or a local LM Studio / MLX / Ollama endpoint, since latency matters more than raw quality here.
+
+Disable entirely with the `autocompleteEnabled` toggle.
+
+## AI edit diffs
+
+When the AI agent proposes a file edit, Oz does not write it directly. It opens an `ai-diff` tab showing the proposed change side by side with the current file. You accept or reject hunk by hunk, then the actual write tool runs against the accepted result.
+
+This is the same mechanism whether the change came from the main agent, a sub-agent, or a custom agent.
+
+## Editor themes
+
+Ten bundled syntax themes, independent of the app theme:
+
+- Atom One
+- Aura
+- Copilot
+- GitHub Dark / Light
+- Gruvbox Dark
+- Nord
+- Tokyo Night
+- Xcode Dark / Light
+
+Pick one in Settings -> Themes. Editor theme picks separately from the app palette - dark editor on light app is fine.
+
+## Shortcuts
+
+| Action | Binding |
+| --- | --- |
+| Find in file | `Cmd+F` |
+| Undo | `Cmd+Z` |
+| Redo | `Cmd+Y` |
+| New editor tab | `Cmd+E` |
+| Toggle Vim mode | Settings -> General |
+
+CodeMirror's native key bindings handle the rest. Oz registers the editor entries in the shortcuts dialog for discoverability but does not intercept them at the app level.

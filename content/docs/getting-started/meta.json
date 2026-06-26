@@ -1,0 +1,8 @@
+{
+  "title": "Getting Started",
+  "icon": "Play",
+  "pages": [
+    "index",
+    "workspace"
+  ]
+}

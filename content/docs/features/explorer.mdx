@@ -1,0 +1,33 @@
+---
+title: File explorer
+description: Catppuccin icons, fuzzy file search, ripgrep content search, and attach-to-AI from selection.
+icon: CodeFolder
+---
+
+The file explorer lives in the sidebar. Backed by Rust fs commands (`fs_read_dir`, `list_subdirs`) and indexed in background threads with the `ignore` crate, so `.gitignore` and `.ignore` are respected.
+
+Toggle the sidebar with `Cmd+B`. Focus the explorer with `Cmd+Shift+E`.
+
+## Tree
+
+- Catppuccin / Material icon theme via `iconResolver.ts`
+- Keyboard navigation - arrows to move, Enter to open, Right / Left to expand and collapse
+- Inline rename
+- Context actions: create file, create directory, rename, delete, reveal in OS
+- Show / hide dotfiles - Settings -> General, `Show hidden`
+
+The explorer root follows the active tab's cwd. Canonical paths are forward-slash; on Windows the backend normalizes to forward slashes at the webview boundary so the tree state stays stable when OSC 7 fires.
+
+## Fuzzy file search
+
+`Cmd+Shift+F` opens the file finder. Powered by `fs_search` in Rust. Searches all files the `ignore` crate would walk, ranked by fuzzy match. Open with Enter, dismiss with Esc.
+
+## Content search (grep)
+
+The same finder switches to content mode for full-text search. Powered by `fs_grep` (the `grep-*` crates, ripgrep's engine). Accepts glob patterns to narrow targets. Results stream in grouped by file, with line numbers and match highlights.
+
+## Attach to AI
+
+Right-click a file -> **Attach to AI** to add it to the [composer](/docs/ai/composer) as an attachment. Or select text in any tab and use `Cmd+L` (Ask AI about selection) to attach the selection as a `<selection source="...">` block on submit.
+
+Selections drain into chips on the composer rather than being pasted into the textarea, so the input stays readable.

@@ -1,0 +1,37 @@
+import { DocsLayout } from "fumadocs-ui/layouts/docs"
+import { RootProvider } from "fumadocs-ui/provider/next"
+import { source } from "@/lib/source"
+import type { ReactNode } from "react"
+import Image from "next/image"
+import { SITE } from "@/lib/site"
+import { ScrollGuard } from "@/components/docs/scroll-guard"
+
+export default function Layout({ children }: { children: ReactNode }) {
+  return (
+    <div className="relative z-0 min-h-screen bg-background">
+      <ScrollGuard />
+      <RootProvider>
+        <DocsLayout
+          tree={source.pageTree}
+          githubUrl={SITE.github}
+          nav={{
+            title: (
+              <div className="flex items-center gap-2.5 font-semibold">
+                <Image
+                  src="/oz_icon_256.png"
+                  alt=""
+                  width={24}
+                  height={24}
+                  className="rounded-md"
+                />
+                <span>{SITE.name} Docs</span>
+              </div>
+            ),
+          }}
+        >
+          {children}
+        </DocsLayout>
+      </RootProvider>
+    </div>
+  )
+}

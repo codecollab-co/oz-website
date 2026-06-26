@@ -1,0 +1,58 @@
+---
+title: Sessions and memory
+description: Named, persistent chat sessions, project-level memory via OZ.md, and custom instructions.
+icon: Notebook
+---
+
+Chats in Oz are organized into named **sessions** that persist across restarts. Sessions are not a single rolling buffer - each is its own conversation with its own message history.
+
+## Sessions
+
+The sessions store lives at `oz-ai-sessions.json` in the app data directory:
+
+- A `list` of session ids and titles
+- An `activeId` pointer
+- Per-session `messages:<id>` keys with the full message history
+
+Internally `chatStore.ts` keeps a module-scoped `Map<sessionId, Chat<UIMessage>>`. `getOrCreateChat(apiKey, sessionId)` lazily constructs a `Chat` and seeds it from a hydration map populated once by `hydrateSessions()`. The `AgentRunBridge` mirrors the active session's messages to disk on every change.
+
+Session titles are derived from the first user message automatically. Rename or delete sessions from the session picker.
+
+Switching the API key wipes the in-memory chat map. Sessions on disk persist - they re-bind to whichever key is active when you open them.
+
+## OZ.md - project memory
+
+Oz loads `OZ.md` from the workspace root as agent memory, the same way Claude Code reads `CLAUDE.md` or other agents read `AGENTS.md`. It is just a Markdown file you keep in your repo.
+
+Use it to encode:
+
+- The project's architecture and module layout
+- Quality conventions (testing, lints, formatting)
+- "How we do things here" rules
+- Known gotchas and historical context
+- Per-area pointers ("for the terminal subsystem, see X")
+
+`OZ.md` is loaded once per session, prepended to the agent's working context. It is the most direct way to make the agent useful in your specific codebase.
+
+You can also use `AGENTS.md` as a single-line redirect:
+
+```text
+OZ.md
+```
+
+(The pattern Oz itself uses in its own repo.)
+
+## Custom instructions
+
+Settings -> General -> **Custom instructions** sets a system prompt addendum that applies to every session, regardless of project. Use it for personal preferences ("answer in Russian", "always include test plans") that are not project-specific.
+
+Project rules go in `OZ.md`. Personal rules go in custom instructions.
+
+## Snippets, todos
+
+Two other persisted stores live alongside sessions:
+
+- `oz-ai-snippets.json` - the `#handle` snippet library
+- `oz-ai-todos.json` - in-app TODO lists the agent can read and write
+
+All four (sessions, agents, snippets, todos) live in the same app data directory. See [Data locations](/docs/reference/data).

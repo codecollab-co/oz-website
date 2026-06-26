@@ -1,0 +1,60 @@
+---
+title: Providers and keys
+description: Cloud providers, local model endpoints, and how API keys are stored.
+icon: Cpu
+---
+
+Oz is BYOK. No usage premium, no proxy, no lock-in. Cloud calls go directly from your machine to the provider through an SSRF-guarded Rust HTTP proxy (`ai_http_request`, `ai_http_stream`).
+
+## Cloud providers
+
+Built on the Vercel AI SDK v6 (`@ai-sdk/*`):
+
+- **OpenAI**
+- **Anthropic**
+- **Google** (Gemini)
+- **Groq**
+- **xAI** (Grok)
+- **Cerebras**
+- **OpenRouter**
+- **DeepSeek**
+- **Mistral**
+- **OpenAI-compatible** - any custom base URL that speaks the OpenAI Chat Completions / Responses shape
+
+Each provider has its own card in **Settings -> Models**. Paste a key, pick a model, done.
+
+<img src="/settings_models.webp" alt="Settings Models tab" width="1200" />
+
+## Local and offline
+
+Key-optional, model id supplied at runtime:
+
+- **LM Studio** - default base `http://127.0.0.1:1234/v1`
+- **MLX** - default base `http://127.0.0.1:8080/v1`, optimized for Apple Silicon
+- **Ollama** - default base `http://127.0.0.1:11434`
+
+Override the base URL per provider in Settings. A reachability indicator (`lm_ping`) verifies the endpoint when you save.
+
+## Model picker
+
+The composer's model picker shows your active provider's model registry, plus favorites and recents you can pin.
+
+<img src="/model_selector.webp" alt="Model picker" width="900" />
+
+The default model id (`DEFAULT_MODEL_ID`) and the default autocomplete model (`DEFAULT_AUTOCOMPLETE_MODEL`) are settable in Settings -> Models.
+
+## Key storage
+
+Keys go to the OS keychain via the `keyring` Rust crate:
+
+- **macOS** - Keychain (service: `oz-ai`)
+- **Windows** - Credential Manager (target: `oz-ai`)
+- **Linux** - Secret Service (libsecret) where available, with a file-based fallback for headless systems
+
+Keys never touch the settings file, `localStorage`, or env vars. The frontend reads and writes them through the `secrets_*` Tauri commands.
+
+Switching the active key wipes the in-memory chat map. Saved sessions on disk persist; they re-bind to whichever key is active when you open them.
+
+## SSRF guard
+
+All provider HTTP traffic routes through Rust, not directly from the webview. The Rust proxy blocks loopback, link-local, and private-range addresses unless the request is explicitly local-provider scoped. AI tool calls cannot exfiltrate to an attacker-controlled internal host through a poisoned prompt.

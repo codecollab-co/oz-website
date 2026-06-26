@@ -1,0 +1,12 @@
+{
+  "title": "AI",
+  "icon": "AiIdea",
+  "pages": [
+    "providers",
+    "composer",
+    "terminal-agents",
+    "plans-and-subagents",
+    "sessions-and-memory",
+    "security"
+  ]
+}

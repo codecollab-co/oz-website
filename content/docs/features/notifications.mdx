@@ -1,0 +1,45 @@
+---
+title: Notifications
+description: One unified notification surface for the Oz agent and every terminal coding agent.
+icon: Record
+---
+
+The header carries a notification bell. It is the single place to see what every agent is doing - the built-in Oz agent and any coding agent running inside a terminal tab (Claude Code today, Codex later).
+
+<img src="/notifications.webp" alt="Notification bell with agent list" width="360" />
+
+## The router
+
+Every agent state transition runs through one router in `lib/route.ts`. It decides where the signal goes based on the window state:
+
+- **Focused and visible (the agent's tab is on screen)** - suppressed. You can already see it.
+- **Focused but the tab is hidden** - in-app Sonner toast, themed via the central engine.
+- **Unfocused window** - native OS notification.
+
+This keeps the bell quiet when you do not need it and loud when you do.
+
+## The Oz agent
+
+The built-in agent is wired through `LocalAgentNotificationsBridge`. It maps `chatStore.agentMeta` states into the same router:
+
+- `awaiting-approval` -> attention
+- `busy` / `idle` / `finished` -> working / finished
+- `error` -> attention
+
+So you get the same toast / OS notification flow whether the AI is in the side-panel or running as a CLI in a terminal tab.
+
+## Terminal agents
+
+For coding agents that run as CLIs inside a PTY (Claude Code), detection is Rust-side on the PTY reader's byte filter. It arms on `OSC 133;C;<cmd>` and emits `oz:agent-signal` events with one of:
+
+- `started`
+- `working`
+- `attention`
+- `finished`
+- `exited`
+
+Signals come from explicit markers (Claude Code emits an `OSC 777` sequence via hooks - see [Coding agents in the terminal](/docs/ai/terminal-agents)), not raw terminal output, so a repainting TUI never flaps the notification state. Zero cost when no agent is running.
+
+## Toggle
+
+Disable agent notifications entirely with the `Agent notifications` switch in Settings -> Agents.
