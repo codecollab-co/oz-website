@@ -55,11 +55,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/oz_icon_256.png", sizes: "256x256", type: "image/png" },
-      { url: "/oz-icon.png", sizes: "1024x1024", type: "image/png" },
+      { url: "/favicon.ico?v=2", sizes: "any" },
+      { url: "/oz_icon_256.png?v=2", sizes: "256x256", type: "image/png" },
+      { url: "/oz-icon.png?v=2", sizes: "1024x1024", type: "image/png" },
     ],
-    apple: [{ url: "/oz_icon_256.png", sizes: "256x256" }],
-    shortcut: ["/oz_icon_256.png"],
+    apple: [{ url: "/oz_icon_256.png?v=2", sizes: "256x256" }],
+    shortcut: ["/favicon.ico?v=2"],
   },
   category: "technology",
   robots: { index: true, follow: true },
