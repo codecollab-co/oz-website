@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { SITE, VERSION } from "@/lib/site"
+import logoImg from "@/public/oz_icon_256.png"
 
 const productLinks = [
   { label: "Downloads", href: "#download" },
@@ -31,7 +32,7 @@ export function GlobalFooter() {
         <div>
           <Link href="/" className="inline-flex items-center gap-2.5">
             <Image
-              src="/oz_icon_256.png"
+              src={logoImg}
               alt=""
               width={28}
               height={28}

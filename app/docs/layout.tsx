@@ -5,6 +5,7 @@ import type { ReactNode } from "react"
 import Image from "next/image"
 import { SITE } from "@/lib/site"
 import { ScrollGuard } from "@/components/docs/scroll-guard"
+import logoImg from "@/public/oz_icon_256.png"
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
@@ -18,7 +19,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             title: (
               <div className="flex items-center gap-2.5 font-semibold">
                 <Image
-                  src="/oz_icon_256.png"
+                  src={logoImg}
                   alt=""
                   width={24}
                   height={24}

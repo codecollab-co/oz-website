@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { SITE } from "@/lib/site"
 import { cn } from "@/lib/utils"
 import { ThemeToggleControl } from "./theme-toggle-control"
+import logoImg from "@/public/oz_icon_256.png"
 
 const navLinks = [
   { href: "/#features", label: "Features" },
@@ -57,7 +58,7 @@ export function GlobalHeaderShell({ stars, rawStars }: HeaderShellProps) {
             aria-label={`${SITE.name} home`}
           >
             <Image
-              src="/oz_icon_256.png"
+              src={logoImg}
               alt=""
               width={28}
               height={28}

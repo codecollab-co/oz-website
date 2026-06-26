@@ -8,6 +8,12 @@ import { GlobalHeader } from "@/components/landing-layout/global-header"
 import { LandingHero } from "@/components/landing-layout/landing-hero"
 import { ProductStats } from "@/components/landing-layout/product-stats"
 import { DOWNLOADS, SITE, VERSION } from "@/lib/site"
+import terminalImg from "@/public/terminal.webp"
+import editorImg from "@/public/editor.webp"
+import sourceControlImg from "@/public/source-control.webp"
+import aiWorkflowImg from "@/public/ai_workflow.webp"
+import webPreviewImg from "@/public/web_preview.webp"
+import themesImg from "@/public/themes.webp"
 
 import {
   BrowserIcon,
@@ -88,7 +94,7 @@ export default function HomePage() {
               },
             ]}
             image={{
-              src: "/terminal.webp",
+              src: terminalImg,
               alt: "Oz terminal showing fastfetch output and the file explorer",
               width: 2560,
               height: 1600,
@@ -116,7 +122,7 @@ export default function HomePage() {
               { icon: EnergyIcon, label: "Sub-millisecond keystroke latency" },
             ]}
             image={{
-              src: "/editor.webp",
+              src: editorImg,
               alt: "Oz code editor with AI autocomplete and Vim mode",
               width: 2560,
               height: 1600,
@@ -150,7 +156,7 @@ export default function HomePage() {
               },
             ]}
             image={{
-              src: "/source-control.webp",
+              src: sourceControlImg,
               alt: "Oz source control panel with diff and commit graph",
               width: 2560,
               height: 1600,
@@ -184,7 +190,7 @@ export default function HomePage() {
               },
             ]}
             image={{
-              src: "/ai_workflow.webp",
+              src: aiWorkflowImg,
               alt: "Oz AI panel showing an agent listing dirs and proposing edit diffs",
               width: 2560,
               height: 1600,
@@ -217,7 +223,7 @@ export default function HomePage() {
               },
             ]}
             image={{
-              src: "/web_preview.webp",
+              src: webPreviewImg,
               alt: "Oz web preview showing a Vite app rendered in a side panel",
               width: 2560,
               height: 1600,
@@ -251,7 +257,7 @@ export default function HomePage() {
               },
             ]}
             image={{
-              src: "/themes.webp",
+              src: themesImg,
               alt: "Oz theme picker showing bundled themes and a custom background image",
               width: 2560,
               height: 1600,
