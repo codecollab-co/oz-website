@@ -4,6 +4,7 @@ import {
   AppleIcon,
   ArrowRight01Icon,
   ComputerIcon,
+  Download04Icon,
   GithubIcon,
   MicrosoftIcon,
 } from "@hugeicons/core-free-icons"
@@ -22,18 +23,18 @@ export function LandingHero() {
   const primary =
     platform === "linux"
       ? {
-          label: "ProductDownload for Linux",
+          label: "Download for Linux",
           href: DOWNLOADS.linuxAppImage.url,
           icon: ComputerIcon,
         }
       : platform === "windows"
         ? {
-            label: "ProductDownload for Windows",
+            label: "Download for Windows",
             href: DOWNLOADS.windows.url,
             icon: MicrosoftIcon,
           }
         : {
-            label: "ProductDownload for macOS",
+            label: "Download for macOS",
             href: DOWNLOADS.macSilicon.url,
             icon: AppleIcon,
           }
@@ -108,6 +109,17 @@ export function LandingHero() {
             <Link href={primary.href} target="_blank" rel="noreferrer">
               <HugeiconsIcon icon={primary.icon} strokeWidth={2} />
               {primary.label}
+            </Link>
+          </Button>
+          <Button
+            asChild
+            size="lg"
+            variant="outline"
+            className="rounded-full px-5"
+          >
+            <Link href="#download">
+              <HugeiconsIcon icon={Download04Icon} strokeWidth={2} />
+              Downloads
             </Link>
           </Button>
           <Button

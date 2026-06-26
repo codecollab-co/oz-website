@@ -120,7 +120,7 @@ export function Downloads() {
             checksums published with every tag.
           </p>
 
-          <div className="mt-8 space-y-4">
+          <div className="mt-8 space-y-6">
             {/* macOS Box */}
             <div className="rounded-2xl border border-border/60 bg-background/60 p-5 backdrop-blur-sm">
               <div className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">

@@ -1,6 +1,6 @@
 "use client"
 
-import { GithubIcon, StarIcon } from "@hugeicons/core-free-icons"
+import { Download04Icon, GithubIcon, StarIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { motion } from "motion/react"
 import Image from "next/image"
@@ -109,8 +109,9 @@ export function GlobalHeaderShell({ stars, rawStars }: HeaderShellProps) {
             href={SITE.github}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
+            <HugeiconsIcon icon={GithubIcon} className="size-3.5" strokeWidth={2} />
             GitHub
           </Link>
         </nav>
@@ -119,7 +120,7 @@ export function GlobalHeaderShell({ stars, rawStars }: HeaderShellProps) {
           <ThemeToggleControl />
           <Button asChild size="sm" className="rounded-full">
             <Link href="#download">
-              <HugeiconsIcon icon={GithubIcon} strokeWidth={2} />
+              <HugeiconsIcon icon={Download04Icon} strokeWidth={2} />
               Downloads
             </Link>
           </Button>
