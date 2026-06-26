@@ -103,11 +103,24 @@
 }
 
 .dark {
+    /* ====================================================================== */
+    /* NEW PURPLE-TINGED SHADE (Oz Logo Cohesive)                             */
+    /* ====================================================================== */
+    --background: oklch(0.135 0.016 273.0);
+    --card: oklch(0.185 0.018 273.0);
+    --popover: oklch(0.185 0.018 273.0);
+
+    /* ====================================================================== */
+    /* LEGACY BLUISH-GRAY SHADE (Uncomment below and comment above to revert) */
+    /* ====================================================================== */
+    /*
     --background: oklch(0.148 0.004 228.8);
-    --foreground: oklch(0.987 0.002 197.1);
     --card: oklch(0.218 0.008 223.9);
-    --card-foreground: oklch(0.987 0.002 197.1);
     --popover: oklch(0.218 0.008 223.9);
+    */
+
+    --foreground: oklch(0.987 0.002 197.1);
+    --card-foreground: oklch(0.987 0.002 197.1);
     --popover-foreground: oklch(0.987 0.002 197.1);
     --primary: oklch(0.925 0.005 214.3);
     --primary-foreground: oklch(0.218 0.008 223.9);
