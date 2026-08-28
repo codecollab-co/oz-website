@@ -1,14 +1,17 @@
 "use client"
 
 import {
+  Cancel01Icon,
   Download04Icon,
   GithubIcon,
+  Menu01Icon,
   StarIcon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { motion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
+import { Dialog, VisuallyHidden } from "radix-ui"
 import * as React from "react"
 
 import { Button } from "@/components/ui/button"
@@ -55,6 +58,7 @@ export function GlobalHeaderShell({
   views,
 }: HeaderShellProps) {
   const [scrolled, setScrolled] = React.useState(false)
+  const [mobileNavOpen, setMobileNavOpen] = React.useState(false)
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -207,6 +211,68 @@ export function GlobalHeaderShell({
               </span>
             ) : null}
           </div>
+
+          <Dialog.Root open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
+            <Dialog.Trigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full md:hidden"
+                aria-label="Open menu"
+              >
+                <HugeiconsIcon icon={Menu01Icon} strokeWidth={2} />
+              </Button>
+            </Dialog.Trigger>
+            <Dialog.Portal>
+              <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
+              <Dialog.Content className="fixed inset-x-3 top-[calc(var(--rename-banner-h,0px)+4.5rem)] z-50 rounded-2xl border border-border/60 bg-background p-2 shadow-lg data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-top-2">
+                <VisuallyHidden.Root asChild>
+                  <Dialog.Title>Site navigation</Dialog.Title>
+                </VisuallyHidden.Root>
+                <div className="flex items-center justify-between px-2 pt-1 pb-2">
+                  <span className="text-sm font-medium text-muted-foreground">
+                    Menu
+                  </span>
+                  <Dialog.Close asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="rounded-full"
+                      aria-label="Close menu"
+                    >
+                      <HugeiconsIcon icon={Cancel01Icon} strokeWidth={2} />
+                    </Button>
+                  </Dialog.Close>
+                </div>
+                <nav className="flex flex-col gap-1">
+                  {navLinks.map((l) => (
+                    <Link
+                      key={l.href}
+                      href={l.href}
+                      onClick={() => setMobileNavOpen(false)}
+                      className="rounded-lg px-3 py-2.5 text-sm text-foreground/80 transition-colors hover:bg-muted hover:text-foreground"
+                    >
+                      {l.label}
+                    </Link>
+                  ))}
+                  <Link
+                    href={SITE.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => setMobileNavOpen(false)}
+                    className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2.5 text-sm text-foreground/80 transition-colors hover:bg-muted hover:text-foreground"
+                  >
+                    <HugeiconsIcon
+                      icon={GithubIcon}
+                      className="size-3.5"
+                      strokeWidth={2}
+                    />
+                    GitHub
+                  </Link>
+                </nav>
+              </Dialog.Content>
+            </Dialog.Portal>
+          </Dialog.Root>
         </div>
       </div>
     </header>
