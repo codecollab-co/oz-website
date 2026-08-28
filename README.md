@@ -27,7 +27,7 @@ The product itself lives in a separate repo: **[my-cli-ck/cli-ck](https://github
 
 The flowing line waves in the hero are the part most people ask about. It is a real-time WebGL shader, not a video or a Lottie file:
 
-- [`components/site/background-waves.tsx`](components/site/background-waves.tsx) mounts the canvas and wires it into the page.
+- [`components/landing-layout/accent-backdrop.tsx`](components/landing-layout/accent-backdrop.tsx) mounts the canvas and wires it into the page (rendered globally from `app/layout.tsx`).
 - [`components/fluid-flow.tsx`](components/fluid-flow.tsx) holds the [OGL](https://github.com/oframe/ogl) setup and the GLSL fragment shader that draws the lines.
 
 Everything is plain GLSL on top of a tiny WebGL wrapper, so it is easy to read and tweak.
@@ -39,7 +39,8 @@ Everything is plain GLSL on top of a tiny WebGL wrapper, so it is easy to read a
 - **[OGL](https://github.com/oframe/ogl)** for the WebGL shader background
 - **[Motion](https://motion.dev)** for animations
 - **[Hugeicons](https://hugeicons.com)** icon set
-- Deployed on **Vercel**
+- **[Fumadocs](https://fumadocs.dev)** for the docs section
+- Statically exported (`output: 'export'`) and deployed to **GitHub Pages**
 
 ## Run locally
 
@@ -72,11 +73,13 @@ Nothing else is required. There are no secrets, no accounts, and no telemetry.
 ## Structure
 
 ```
-app/                Next.js routes (home, about, changelog, privacy, terms, security)
-components/site/    Page sections (hero, demo, feature grid, footer, ...)
-components/ui/       shadcn/ui primitives
-lib/site.ts         Single source of truth: version, links, downloads
-lib/changelog.ts    Changelog data
+app/                     Next.js routes (home, about, changelog, privacy, terms, security, benchmarks)
+app/docs/[[...slug]]     Docs site, powered by Fumadocs
+content/docs/            Docs MDX content
+components/landing-layout/  Page sections (hero, demo, feature grid, footer, ...)
+components/ui/           shadcn/ui primitives
+lib/site.ts              Single source of truth: version, links, downloads
+lib/changelog.ts         Changelog data
 ```
 
 Want to change a download link or bump the shown version? It all lives in [`lib/site.ts`](lib/site.ts).
