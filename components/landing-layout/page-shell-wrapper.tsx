@@ -3,12 +3,16 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { GlobalFooter } from "./global-footer"
 import { GlobalHeader } from "./global-header"
+import { RenameBanner } from "./rename-banner"
 
 export function PageShellWrapper({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <RenameBanner />
       <GlobalHeader />
-      <main className="relative">{children}</main>
+      <main className="relative pt-[var(--rename-banner-h,0px)] transition-[padding] duration-300">
+        {children}
+      </main>
       <GlobalFooter />
     </>
   )
@@ -72,7 +76,7 @@ export function Prose({
   return (
     <div
       className={cn(
-        "prose-oz mx-auto max-w-3xl px-4 sm:px-6",
+        "prose-cli-ck mx-auto max-w-3xl px-4 sm:px-6",
         "[&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:tracking-[-0.02em] sm:[&_h2]:text-3xl",
         "[&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:tracking-[-0.01em]",
         "[&_p]:mt-4 [&_p]:leading-relaxed [&_p]:text-foreground/75",

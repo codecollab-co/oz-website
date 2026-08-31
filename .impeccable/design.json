@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "generatedAt": "2026-07-27T00:00:00Z",
-  "title": "Design System: Oz",
+  "title": "Design System: cli-ck",
   "extensions": {
     "colorMeta": {
       "signal-deep": { "role": "primary", "displayName": "Deep Signal", "canonical": "#047857" },
@@ -84,7 +84,7 @@
       "kind": "custom",
       "refersTo": "terminal-chrome-frame",
       "description": "Signature component wrapping product screenshots/video — dark zinc-950 shell regardless of site theme, muted dots (never traffic-light colors), mono caption, paired with Media Float elevation.",
-      "html": "<div class=\"ds-terminal-frame\"><div class=\"ds-terminal-bar\"><span class=\"ds-terminal-dot\"></span><span class=\"ds-terminal-dot\"></span><span class=\"ds-terminal-dot\"></span><span class=\"ds-terminal-caption\">oz · demo</span></div><div class=\"ds-terminal-body\"></div></div>",
+      "html": "<div class=\"ds-terminal-frame\"><div class=\"ds-terminal-bar\"><span class=\"ds-terminal-dot\"></span><span class=\"ds-terminal-dot\"></span><span class=\"ds-terminal-dot\"></span><span class=\"ds-terminal-caption\">cli-ck · demo</span></div><div class=\"ds-terminal-body\"></div></div>",
       "css": ".ds-terminal-frame { position: relative; overflow: hidden; border-radius: 18px; border: 1px solid rgba(255,255,255,0.12); background: #09090b; box-shadow: 0 30px 80px -20px rgba(0,0,0,0.55); } .ds-terminal-bar { display: flex; align-items: center; gap: 6px; padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.06); background: rgba(9,9,11,0.9); } .ds-terminal-dot { width: 10px; height: 10px; border-radius: 999px; background: rgba(63,63,70,0.9); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05); } .ds-terminal-caption { margin-left: 12px; font-family: ui-monospace, monospace; font-size: 11px; letter-spacing: 0.02em; color: #71717a; } .ds-terminal-body { aspect-ratio: 16 / 9; background: #09090b; }"
     },
     {
@@ -98,7 +98,7 @@
   ],
   "narrative": {
     "northStar": "The Quiet Terminal",
-    "overview": "Oz's site is a restrained, monochrome workspace with exactly one glowing signal color — like a terminal prompt in a dark room. Every surface, button, and card is disciplined grayscale ink; discipline is what makes the one accent (emerald, matching the product's own logo mark) read as meaningful rather than decorative. The product's positioning — a ~7 MB, ~300 ms binary that does more with less than its Electron-based competitors — is expressed visually the same way: nothing is spent on ornament that isn't earned.\n\nThe site reads precise, restrained, and quietly confident. Confidence here means omission, not volume: exact numbers in monospace (7 MB, 300 ms, Apache-2.0) instead of marketing superlatives, generous whitespace instead of dense feature-wall layouts, and a single real-time WebGL shader instead of a library of decorative gradients. The one confirmed anti-reference is the generic SaaS gradient-mesh landing page — purple/blue blob gradients, stock-photo heroes, bento-grid-of-everything layouts. The animated background is the site's only \"mesh gradient,\" and it earns the exception by being real, physically simulated, and tied directly to the brand mark rather than a stock effect.",
+    "overview": "cli-ck's site is a restrained, monochrome workspace with exactly one glowing signal color — like a terminal prompt in a dark room. Every surface, button, and card is disciplined grayscale ink; discipline is what makes the one accent (emerald, matching the product's own logo mark) read as meaningful rather than decorative. The product's positioning — a ~7 MB, ~300 ms binary that does more with less than its Electron-based competitors — is expressed visually the same way: nothing is spent on ornament that isn't earned.\n\nThe site reads precise, restrained, and quietly confident. Confidence here means omission, not volume: exact numbers in monospace (7 MB, 300 ms, Apache-2.0) instead of marketing superlatives, generous whitespace instead of dense feature-wall layouts, and a single real-time WebGL shader instead of a library of decorative gradients. The one confirmed anti-reference is the generic SaaS gradient-mesh landing page — purple/blue blob gradients, stock-photo heroes, bento-grid-of-everything layouts. The animated background is the site's only \"mesh gradient,\" and it earns the exception by being real, physically simulated, and tied directly to the brand mark rather than a stock effect.",
     "keyCharacteristics": [
       "Monochrome UI chrome (ink-on-surface, inverted per theme) with zero colored buttons, links-as-color, or tinted borders.",
       "One signal hue (emerald, three intensities) confined to the ambient shader background and the dark-mode surface tint.",

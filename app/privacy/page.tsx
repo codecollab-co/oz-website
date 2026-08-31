@@ -1,7 +1,11 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 
-import { PageHero, PageShellWrapper, Prose } from "@/components/landing-layout/page-shell-wrapper"
+import {
+  PageHero,
+  PageShellWrapper,
+  Prose,
+} from "@/components/landing-layout/page-shell-wrapper"
 import { SITE } from "@/lib/site"
 
 export const metadata: Metadata = {
@@ -18,7 +22,7 @@ export default function PrivacyPage() {
       <PageHero
         eyebrow="Privacy"
         title="Privacy"
-        lead="Oz has no accounts, no analytics, and no backend. Here's exactly what data leaves your machine, and when."
+        lead="cli-ck has no accounts, no analytics, and no backend. Here's exactly what data leaves your machine, and when."
         meta={<span>Last updated · {updated}</span>}
       />
 
@@ -39,7 +43,7 @@ export default function PrivacyPage() {
           </li>
         </ul>
 
-        <h2>What Oz stores locally</h2>
+        <h2>What cli-ck stores locally</h2>
         <ul>
           <li>
             <strong>Settings and preferences</strong> in the standard app data
@@ -59,10 +63,10 @@ export default function PrivacyPage() {
           </li>
         </ul>
 
-        <h2>What Oz sends over the network</h2>
+        <h2>What cli-ck sends over the network</h2>
         <p>
-          Oz only makes network requests for things you explicitly enabled or
-          triggered:
+          cli-ck only makes network requests for things you explicitly enabled
+          or triggered:
         </p>
         <ul>
           <li>
@@ -83,7 +87,7 @@ export default function PrivacyPage() {
 
         <h2>What we (the project) collect</h2>
         <p>
-          Nothing. There is no Oz server. The only places where data about
+          Nothing. There is no cli-ck server. The only places where data about
           you might live are:
         </p>
         <ul>
@@ -98,13 +102,19 @@ export default function PrivacyPage() {
           </li>
           <li>
             <strong>Email</strong>, if you write to{" "}
-            <Link href="mailto:info@oz.app">info@oz.app</Link> or{" "}
-            <Link href="mailto:security@oz.app">security@oz.app</Link>.
+            <Link href="mailto:info@cli-ck.app">info@cli-ck.app</Link> or{" "}
+            <Link href="mailto:security@cli-ck.app">security@cli-ck.app</Link>.
+          </li>
+          <li>
+            <strong>GoatCounter</strong>, a cookie-less page-view counter for
+            this site, used to show the live visit count on the homepage. It
+            counts visits in aggregate - no personal data, no cross-site
+            tracking, no cookies.
           </li>
         </ul>
         <p>
-          We don&apos;t run analytics on this site, don&apos;t set tracking
-          cookies, and don&apos;t embed third-party trackers.
+          Outside of that one counter, we don&apos;t set tracking cookies or
+          embed third-party trackers.
         </p>
 
         <h2>Third-party AI providers</h2>
@@ -125,8 +135,8 @@ export default function PrivacyPage() {
         <h2>Contact</h2>
         <p>
           Privacy questions:{" "}
-          <Link href="mailto:info@oz.app">info@oz.app</Link>. Security:{" "}
-          <Link href="mailto:security@oz.app">security@oz.app</Link>.
+          <Link href="mailto:info@cli-ck.app">info@cli-ck.app</Link>. Security:{" "}
+          <Link href="mailto:security@cli-ck.app">security@cli-ck.app</Link>.
           Source:{" "}
           <Link href={SITE.github} target="_blank" rel="noreferrer">
             {SITE.github.replace("https://", "")}

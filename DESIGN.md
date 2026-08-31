@@ -1,5 +1,5 @@
 ---
-name: Oz
+name: cli-ck
 description: Terminal-first AI-native dev workspace — marketing/docs site
 colors:
   signal-deep: "#047857"
@@ -92,13 +92,13 @@ components:
     height: "36px"
 ---
 
-# Design System: Oz
+# Design System: cli-ck
 
 ## Overview
 
 **Creative North Star: "The Quiet Terminal"**
 
-Oz's site is a restrained, monochrome workspace with exactly one glowing signal color — like a terminal prompt in a dark room. Every surface, button, and card is disciplined grayscale ink; discipline is what makes the one accent (emerald, matching the product's own logo mark) read as meaningful rather than decorative. The product's positioning — a ~7 MB, ~300 ms binary that does more with less than its Electron-based competitors — is expressed visually the same way: nothing is spent on ornament that isn't earned.
+cli-ck's site is a restrained, monochrome workspace with exactly one glowing signal color — like a terminal prompt in a dark room. Every surface, button, and card is disciplined grayscale ink; discipline is what makes the one accent (emerald, matching the product's own logo mark) read as meaningful rather than decorative. The product's positioning — a ~7 MB, ~300 ms binary that does more with less than its Electron-based competitors — is expressed visually the same way: nothing is spent on ornament that isn't earned.
 
 The site reads precise, restrained, and quietly confident. Confidence here means omission, not volume: exact numbers in monospace (7 MB, 300 ms, Apache-2.0) instead of marketing superlatives, generous whitespace instead of dense feature-wall layouts, and a single real-time WebGL shader instead of a library of decorative gradients. The one confirmed anti-reference is the generic SaaS gradient-mesh landing page — purple/blue blob gradients, stock-photo heroes, bento-grid-of-everything layouts. The animated background is the site's only "mesh gradient," and it earns the exception by being real, physically simulated, and tied directly to the brand mark rather than a stock effect.
 
@@ -205,7 +205,7 @@ Buttons, cards, and inputs should feel **tactile and quiet**: heavily rounded an
 - Header/footer keep the same monochrome-ink, hairline-border language as the rest of the chrome; no distinct nav-specific color or elevation treatment observed.
 
 ### Terminal Chrome Frame (signature)
-The recurring "window" component wrapping any real product view — screenshots and the embedded demo video. Dark `zinc-950` shell regardless of site theme (light or dark mode), a hairline top bar with three **muted zinc dots** (`bg-zinc-700/90`, never red/yellow/green traffic-light colors), and an optional mono caption (`oz · demo`) in `zinc-500`. Always paired with Media Float elevation and a soft background halo. This is the system's most distinctive custom component — it's how the site signals "this is the real app," not a mockup.
+The recurring "window" component wrapping any real product view — screenshots and the embedded demo video. Dark `zinc-950` shell regardless of site theme (light or dark mode), a hairline top bar with three **muted zinc dots** (`bg-zinc-700/90`, never red/yellow/green traffic-light colors), and an optional mono caption (`cli-ck · demo`) in `zinc-500`. Always paired with Media Float elevation and a soft background halo. This is the system's most distinctive custom component — it's how the site signals "this is the real app," not a mockup.
 
 ### Seam Grid (signature)
 The tile-grid technique used for the toolkit feature grid and the product stat row: the grid container's own background is set to the border color, cells are set to the page background, and a 1px `gap` between cells does the work a per-tile border or shadow would otherwise do. Produces perfectly even hairline seams between tiles without stacking individual borders.

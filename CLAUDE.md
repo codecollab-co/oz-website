@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-The marketing/docs website for **Oz** ([oz.app](https://oz.app)), a terminal-first AI-native dev workspace. The product itself lives in a separate repo (`my-oz/oz`); this repo is only the landing page + docs site. It's statically exported and deployed to GitHub Pages under the `/oz-website` subpath — there is no backend, no server runtime, no database.
+The marketing/docs website for **cli-ck** ([cli-ck.app](https://cli-ck.github.io/cli-ck-website)), a terminal-first AI-native dev workspace. The product itself lives in a separate repo (`my-cli-ck/cli-ck`); this repo is only the landing page + docs site. It's statically exported and deployed to GitHub Pages under the `/cli-ck-website` subpath — there is no backend, no server runtime, no database.
 
 ## Commands
 
@@ -20,13 +20,13 @@ pnpm format       # prettier --write "**/*.{ts,tsx}"
 
 There is no test suite/runner in this repo — verification is `typecheck` + `lint` + manually checking the page in a browser (`pnpm dev`).
 
-An optional `GITHUB_TOKEN` env var (read-only, public-repo scope) raises the GitHub API rate limit used to show the live star count on the homepage. Not required for local dev.
+An optional `GITHUB_TOKEN` env var (read-only, public-repo scope) raises the GitHub API rate limit used to show the live star and download counts on the homepage. An optional `GOATCOUNTER_CODE` env var (your GoatCounter site subdomain, e.g. `mysite` for `mysite.goatcounter.com`) enables the live view count - without it the views figure is simply hidden. Neither is required for local dev.
 
 ## Architecture
 
-**Static export, subpath-hosted.** `next.config.mjs` sets `output: 'export'`, `trailingSlash: true`, and `basePath: '/oz-website'` (deployed at `my-oz.github.io/oz-website`, not a custom domain root). Any hardcoded internal link, asset path, or image `src` must be prefixed with the basePath (see the icon URLs in `app/layout.tsx` for the pattern: `/oz-website/favicon.ico`). Images are `unoptimized: true` since there's no image-optimization server in a static export. Deploy is `.github/workflows/deploy.yml`: on push to `main`, it runs `pnpm build` and publishes `out/` to GitHub Pages.
+**Static export, subpath-hosted.** `next.config.mjs` sets `output: 'export'`, `trailingSlash: true`, and `basePath: '/cli-ck-website'` (deployed at `cli-ck.github.io/cli-ck-website`, not a custom domain root). Any hardcoded internal link, asset path, or image `src` must be prefixed with the basePath (see the icon URLs in `app/layout.tsx` for the pattern: `/cli-ck-website/favicon.ico`). Images are `unoptimized: true` since there's no image-optimization server in a static export. Deploy is `.github/workflows/deploy.yml`: on push to `main`, it runs `pnpm build` and publishes `out/` to GitHub Pages.
 
-**Single source of truth for site content:** `lib/site.ts` holds the `SITE` object (name, taglines, all external URLs, version) and the `DOWNLOADS` map (per-platform release artifact filenames/URLs, derived from `VERSION`). Bumping the app version or changing a download link happens here, not in components. `lib/changelog.ts` holds changelog entries. `lib/github.ts` fetches the live star count from the GitHub API (cached via `next: { revalidate: 3600 }`).
+**Single source of truth for site content:** `lib/site.ts` holds the `SITE` object (name, taglines, all external URLs, version) and the `DOWNLOADS` map (per-platform release artifact filenames/URLs, derived from `VERSION`). Bumping the app version or changing a download link happens here, not in components. `lib/changelog.ts` holds changelog entries. `lib/github.ts` fetches the live star count from the GitHub API. `lib/downloads.ts` sums GitHub release asset downloads plus npm lifetime downloads for both `@codecollab.co/cli-ck` and the legacy `@codecollab.co/oz` package. `lib/goatcounter.ts` reads the live page-view total from GoatCounter. All three are build-time-only fetches (this is a static export, no server) - freshness comes from the deploy workflow's daily `schedule:` cron, not per-request revalidation.
 
 **Two halves of the app:**
 - Marketing pages (`app/page.tsx`, `about`, `changelog`, `privacy`, `terms`, `security`) are built from section components in `components/landing-layout/` (hero, feature grid, FAQ, footer, product demo, etc.) plus shared primitives in `components/ui/` (shadcn/ui, generated via `components.json` — style `radix-luma`, icon library `hugeicons`).

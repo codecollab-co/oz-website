@@ -1,12 +1,17 @@
 import type { Metadata, Viewport } from "next"
 import { Geist_Mono, Inter } from "next/font/google"
+import Script from "next/script"
 
 import { AccentBackdrop } from "@/components/landing-layout/accent-backdrop"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SITE } from "@/lib/site"
 import { cn } from "@/lib/utils"
-import { Analytics } from "@vercel/analytics/next"
+// Vercel Analytics doesn't run on this static GitHub Pages export (no Vercel
+// project behind it) - replaced by the GoatCounter script below.
+// import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
+
+const GOATCOUNTER_CODE = process.env.GOATCOUNTER_CODE
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -36,9 +41,9 @@ export const metadata: Metadata = {
     "developer tools",
     "open source terminal",
   ],
-  authors: [{ name: "Oz", url: SITE.github }],
-  creator: "Oz",
-  publisher: "Oz",
+  authors: [{ name: "cli-ck", url: SITE.github }],
+  creator: "cli-ck",
+  publisher: "cli-ck",
   alternates: { canonical: SITE.url },
   openGraph: {
     type: "website",
@@ -55,12 +60,22 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/oz-website/favicon.ico?v=2", sizes: "any" },
-      { url: "/oz-website/oz_icon_256.png?v=2", sizes: "256x256", type: "image/png" },
-      { url: "/oz-website/oz-icon.png?v=2", sizes: "1024x1024", type: "image/png" },
+      { url: "/cli-ck-website/favicon.ico?v=2", sizes: "any" },
+      {
+        url: "/cli-ck-website/cli_ck_icon_256.png?v=2",
+        sizes: "256x256",
+        type: "image/png",
+      },
+      {
+        url: "/cli-ck-website/cli-ck-icon.png?v=2",
+        sizes: "1024x1024",
+        type: "image/png",
+      },
     ],
-    apple: [{ url: "/oz-website/oz_icon_256.png?v=2", sizes: "256x256" }],
-    shortcut: ["/oz-website/favicon.ico?v=2"],
+    apple: [
+      { url: "/cli-ck-website/cli_ck_icon_256.png?v=2", sizes: "256x256" },
+    ],
+    shortcut: ["/cli-ck-website/favicon.ico?v=2"],
   },
   category: "technology",
   robots: { index: true, follow: true },
@@ -96,7 +111,14 @@ export default function RootLayout({
           <AccentBackdrop />
           {children}
         </ThemeProvider>
-        <Analytics />
+        {/* <Analytics /> */}
+        {GOATCOUNTER_CODE ? (
+          <Script
+            data-goatcounter={`https://${GOATCOUNTER_CODE}.goatcounter.com/count`}
+            src="https://gc.zgo.at/count.js"
+            strategy="afterInteractive"
+          />
+        ) : null}
       </body>
     </html>
   )

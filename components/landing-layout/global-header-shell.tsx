@@ -1,33 +1,64 @@
 "use client"
 
-import { Download04Icon, GithubIcon, StarIcon } from "@hugeicons/core-free-icons"
+import {
+  Cancel01Icon,
+  Download04Icon,
+  GithubIcon,
+  Menu01Icon,
+  StarIcon,
+} from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { motion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
+import { Dialog, VisuallyHidden } from "radix-ui"
 import * as React from "react"
 
 import { Button } from "@/components/ui/button"
 import { SITE } from "@/lib/site"
-import { cn } from "@/lib/utils"
+import { cn, formatCompactNumber } from "@/lib/utils"
 import { ThemeToggleControl } from "./theme-toggle-control"
-import logoImg from "@/public/oz_icon_256.png"
+import logoImg from "@/public/cli_ck_icon_256.png"
+
+function SimpleEyeIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  )
+}
 
 const navLinks = [
-  { href: "/#features", label: "Features" },
+  { href: "/benchmarks", label: "Benchmarks" },
   { href: "/about", label: "About" },
   { href: "/changelog", label: "Changelog" },
-  { href: "/#faq", label: "FAQ" },
   { href: "/docs", label: "Docs" },
 ]
 
 interface HeaderShellProps {
   stars: string | null
   rawStars: number | null
+  downloads: number | null
+  views: number | null
 }
 
-export function GlobalHeaderShell({ stars, rawStars }: HeaderShellProps) {
+export function GlobalHeaderShell({
+  stars,
+  rawStars,
+  downloads,
+  views,
+}: HeaderShellProps) {
   const [scrolled, setScrolled] = React.useState(false)
+  const [mobileNavOpen, setMobileNavOpen] = React.useState(false)
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -39,7 +70,7 @@ export function GlobalHeaderShell({ stars, rawStars }: HeaderShellProps) {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        "fixed inset-x-0 top-[var(--rename-banner-h,0px)] z-50 transition-all duration-300",
         scrolled ? "py-2" : "py-4"
       )}
     >
@@ -94,6 +125,47 @@ export function GlobalHeaderShell({ stars, rawStars }: HeaderShellProps) {
               </Link>
             </motion.div>
           ) : null}
+
+          {downloads != null || views != null ? (
+            <motion.div
+              initial={{ opacity: 0, x: -4 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              aria-label={
+                [
+                  downloads != null ? `${downloads} downloads` : null,
+                  views != null ? `${views} views` : null,
+                ]
+                  .filter(Boolean)
+                  .join(", ") || undefined
+              }
+              className="hidden items-center gap-1.5 rounded-full border border-border/60 bg-background/60 px-2.5 py-1 font-mono text-[11px] tracking-tight text-foreground/80 backdrop-blur-md sm:inline-flex"
+            >
+              {downloads != null ? (
+                <span className="inline-flex items-center gap-1">
+                  <HugeiconsIcon
+                    icon={Download04Icon}
+                    className="size-3"
+                    strokeWidth={2.5}
+                  />
+                  <span className="tabular-nums">
+                    {formatCompactNumber(downloads)}
+                  </span>
+                </span>
+              ) : null}
+              {downloads != null && views != null ? (
+                <span className="text-muted-foreground/40">·</span>
+              ) : null}
+              {views != null ? (
+                <span className="inline-flex items-center gap-1">
+                  <SimpleEyeIcon className="size-3" />
+                  <span className="tabular-nums">
+                    {formatCompactNumber(views)}
+                  </span>
+                </span>
+              ) : null}
+            </motion.div>
+          ) : null}
         </div>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -112,19 +184,95 @@ export function GlobalHeaderShell({ stars, rawStars }: HeaderShellProps) {
             rel="noreferrer"
             className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
-            <HugeiconsIcon icon={GithubIcon} className="size-3.5" strokeWidth={2} />
+            <HugeiconsIcon
+              icon={GithubIcon}
+              className="size-3.5"
+              strokeWidth={2}
+            />
             GitHub
           </Link>
         </nav>
 
         <div className="flex items-center gap-2">
           <ThemeToggleControl />
-          <Button asChild size="sm" className="rounded-full">
-            <Link href="#download">
-              <HugeiconsIcon icon={Download04Icon} strokeWidth={2} />
-              Downloads
-            </Link>
-          </Button>
+          <div className="relative">
+            <Button asChild size="sm" className="rounded-full">
+              <Link href="#download">
+                <HugeiconsIcon icon={Download04Icon} strokeWidth={2} />
+                Downloads
+              </Link>
+            </Button>
+            {downloads != null ? (
+              <span
+                aria-hidden
+                className="absolute -top-1.5 -right-1.5 inline-flex items-center justify-center rounded-full bg-background px-1 py-px font-mono text-[9px] leading-tight text-foreground tabular-nums shadow-sm ring-1 ring-border/60"
+              >
+                {formatCompactNumber(downloads)}
+              </span>
+            ) : null}
+          </div>
+
+          <Dialog.Root open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
+            <Dialog.Trigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full md:hidden"
+                aria-label="Open menu"
+              >
+                <HugeiconsIcon icon={Menu01Icon} strokeWidth={2} />
+              </Button>
+            </Dialog.Trigger>
+            <Dialog.Portal>
+              <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
+              <Dialog.Content className="fixed inset-x-3 top-[calc(var(--rename-banner-h,0px)+4.5rem)] z-50 rounded-2xl border border-border/60 bg-background p-2 shadow-lg data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-top-2">
+                <VisuallyHidden.Root asChild>
+                  <Dialog.Title>Site navigation</Dialog.Title>
+                </VisuallyHidden.Root>
+                <div className="flex items-center justify-between px-2 pt-1 pb-2">
+                  <span className="text-sm font-medium text-muted-foreground">
+                    Menu
+                  </span>
+                  <Dialog.Close asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="rounded-full"
+                      aria-label="Close menu"
+                    >
+                      <HugeiconsIcon icon={Cancel01Icon} strokeWidth={2} />
+                    </Button>
+                  </Dialog.Close>
+                </div>
+                <nav className="flex flex-col gap-1">
+                  {navLinks.map((l) => (
+                    <Link
+                      key={l.href}
+                      href={l.href}
+                      onClick={() => setMobileNavOpen(false)}
+                      className="rounded-lg px-3 py-2.5 text-sm text-foreground/80 transition-colors hover:bg-muted hover:text-foreground"
+                    >
+                      {l.label}
+                    </Link>
+                  ))}
+                  <Link
+                    href={SITE.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => setMobileNavOpen(false)}
+                    className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2.5 text-sm text-foreground/80 transition-colors hover:bg-muted hover:text-foreground"
+                  >
+                    <HugeiconsIcon
+                      icon={GithubIcon}
+                      className="size-3.5"
+                      strokeWidth={2}
+                    />
+                    GitHub
+                  </Link>
+                </nav>
+              </Dialog.Content>
+            </Dialog.Portal>
+          </Dialog.Root>
         </div>
       </div>
     </header>
